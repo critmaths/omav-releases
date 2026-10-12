@@ -8,6 +8,7 @@
 <p align="center">
   <a href="https://github.com/critmaths/omav-releases/releases/tag/v0.9.0-beta"><img src="https://img.shields.io/badge/Download-v0.9.0--beta-0284c7?style=for-the-badge&logo=windows&logoColor=white" alt="Download Beta" /></a>
   <a href="https://omavsecurity.wordpress.com/"><img src="https://img.shields.io/badge/Official_Website-Visit_Site-00d084?style=for-the-badge" alt="Official Website" /></a>
+  <a href="https://github.com/sponsors/critmaths"><img src="https://img.shields.io/badge/Sponsor-GitHub-ea4aaa?style=for-the-badge&logo=github&logoColor=white" alt="Sponsor on GitHub" /></a>
   <a href="https://patreon.com/omav"><img src="https://img.shields.io/badge/Patreon-Support_Project-f96854?style=for-the-badge&logo=patreon&logoColor=white" alt="Support on Patreon" /></a>
 </p>
 
@@ -87,6 +88,7 @@ Tired of legacy antivirus suites consuming 15% of your CPU, gigabytes of RAM, an
 
 - 🌐 **Official Website:** [omavsecurity.wordpress.com](https://omavsecurity.wordpress.com/)
 - 🐛 **Issue Tracker & False Positives:** [Open a GitHub Issue](https://github.com/critmaths/omav-releases/issues)
+- 💖 **Sponsor on GitHub:** [github.com/sponsors/critmaths](https://github.com/sponsors/critmaths)
 - 🧡 **Support the Project on Patreon:** [patreon.com/omav](https://patreon.com/omav)
 
 <p align="center">
