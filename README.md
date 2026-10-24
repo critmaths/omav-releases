@@ -54,6 +54,8 @@ Tired of legacy antivirus suites consuming 15% of your CPU, gigabytes of RAM, an
 - **Dual Heuristic & Signature Detection:** Combines MD5/SHA-256 database matching with dynamic Shannon entropy scoring to flag packed, encrypted, or disguised executables.
 - **Advanced Evasion Sentry:** Detects direct NT syscalls (`NtAllocateVirtualMemory`, `NtWriteVirtualMemory`, `NtCreateThreadEx`), Early Bird APC queues, Process Hollowing, and memory blinding.
 - **Real-Time Guard:** Actively watches drop zones, downloads, and temp folders to neutralize zero-day threats the moment they arrive.
+- **Native Windows Desktop Notifications:** Fires out-of-app toast alerts from the system tray in the bottom right corner above all running full-screen or windowed apps whenever threats are quarantined or intercepted.
+- **Intelligent Threat Severity Gating:** High and Extreme threats (Trojans, Ransomware, process injectors) are automatically isolated into the AES-256 vault immediately, while Low severity items (unsigned utility scripts, heuristic warnings) are flagged for user review to prevent disruptive false positives.
 - **Isolated Quarantine:** Safely encrypts and isolates threats using AES-256-GCM.
 
 ### 🌐 OmAV VPN Shield (WireGuard Encrypted Network Tunnel)
