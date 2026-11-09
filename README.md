@@ -1,127 +1,157 @@
-# <p align="center"><img src="https://omavsecurity.wordpress.com/wp-content/uploads/2026/09/cropped-omav_logo_round.png" alt="OmAV Security Suite" width="100" height="100" style="border-radius: 50%;" /><br>OmAV Security Suite</p>
+<p align="center">
+  <img src="omav_site_icon_squircle_512.png" alt="OmAV Infinity-Shield Logo" width="160" height="160" />
+</p>
+
+<h1 align="center">🛡️ OmAV Security Suite</h1>
+<h3 align="center">Precision Windows Antivirus, 6-Layer Active Defense & Global WireGuard® VPN Shield</h3>
 
 <p align="center">
-  <strong>Next-Gen Real-Time Antivirus, System Care, WireGuard VPN Shield & Zero-Knowledge Vault.</strong><br>
-  <em>Precision Engineering for Modern Defense by Critical Softworks</em>
+  <b>Engineered by Critical Softworks</b><br/>
+  <i>Next-generation endpoint protection combining high-performance Rust parallel heuristics, in-memory script de-obfuscation, decoy honeypot canary traps, and multi-peer zero-log WireGuard encryption.</i>
 </p>
 
 <p align="center">
-  <a href="https://github.com/critmaths/omav-releases/releases/latest"><img src="https://img.shields.io/badge/Download-v0.9.0--beta-0284c7?style=for-the-badge&logo=windows&logoColor=white" alt="Download Beta" /></a>
-  <a href="https://omavsecurity.wordpress.com/"><img src="https://img.shields.io/badge/Official_Website-Visit_Site-00d084?style=for-the-badge" alt="Official Website" /></a>
-  <a href="https://github.com/sponsors/critmaths"><img src="https://img.shields.io/badge/Sponsor-GitHub-ea4aaa?style=for-the-badge&logo=github&logoColor=white" alt="Sponsor on GitHub" /></a>
-  <a href="https://patreon.com/omav"><img src="https://img.shields.io/badge/Patreon-Support_Project-f96854?style=for-the-badge&logo=patreon&logoColor=white" alt="Support on Patreon" /></a>
+  <a href="https://github.com/critmaths/omav-releases/releases"><img src="https://img.shields.io/github/v/release/critmaths/omav-releases?include_prereleases&color=00d2ff&label=Latest%20Release&logo=github" alt="Release" /></a>
+  <img src="https://img.shields.io/badge/Platform-Windows%2010%20%7C%2011%20(64--bit)-0078D6?logo=windows&logoColor=white" alt="Windows" />
+  <img src="https://img.shields.io/badge/Core%20Engine-Rust%202021%20(Rayon%20Multi--threaded)-dea584?logo=rust&logoColor=white" alt="Rust" />
+  <img src="https://img.shields.io/badge/GUI-Flutter%203.24%20Desktop-02569B?logo=flutter&logoColor=white" alt="Flutter" />
+  <img src="https://img.shields.io/badge/Active%20Defense-6--Layer%20Matrix%20(YARA%20%2B%20AMSI)-00ff9d" alt="Active Defense" />
+  <img src="https://img.shields.io/badge/VPN-WireGuard%20(ChaCha20--Poly1305)-881337?logo=wireguard&logoColor=white" alt="WireGuard" />
+  <img src="https://img.shields.io/badge/License-Community%20Free%20%7C%2014--Day%20Pro%20Trial-ffaa00" alt="License" />
 </p>
+
+---
+
+## ⚡ Instant Download & Install
+
+**Zero developer dependencies required.** No need to install Rust, Flutter, Python, or Git.
+
+1. Download the verified release installer: [**`OmAV-Setup-v0.9.0-beta.exe`**](https://github.com/critmaths/omav-releases/releases/download/v0.9.0-beta/OmAV-Setup-v0.9.0-beta.exe) (~15.7 MB)
+2. **Cryptographic SHA-256 Checksum**:
+   ```text
+   04bcf07a4ce9d371244b46f03133d45651ea65e9df80f92471e86602c891f0a8
+   ```
+3. Run the installer, launch **OmAV**, and immediately activate your **14-Day Free Pro Trial** with 1 click!
+
+---
+
+## 🚀 Key Architectural Pillars
+
+### 1. 🛡️ 6-Layer Elite Active Defense Matrix
+Commercial-grade, zero-marginal-cost protection running 100% on-device in native Rust:
+
+1. **WinVerifyTrust Authenticode & PE Directory Inspection**: Calls Windows `wintrust.dll` with sub-millisecond offline caching (`WTD_CACHE_ONLY_URL_RETRIEVAL`) to verify OS trust chains. Automatically suppresses heuristic false positives on certified vendor binaries while elevating severity on tampered or forged PE `IMAGE_DIRECTORY_ENTRY_SECURITY` structures.
+2. **YARA Multi-Pattern Byte & String Engine**: Inspects both case-insensitive ASCII and UTF-16LE wide strings across major threat families (`ShadowWiper`, `Mimikatz`, `CobaltStrike Beacon`, `AsyncRAT/Quasar`, `RedLine/Lumma Stealer`, `AMSI/ETW Patching`, `LockBit/BlackCat`, `ReverseShells`). All indicators are obfuscated at rest in `.rdata` to prevent host AV interference.
+3. **Anti-Ransomware Canary Traps & Extension Sentry**: Automatically deploys hidden decoy honeypot vault guards (`.omav_canary_vault_guard.bak`) into watched folders. If any ransomware attempts unauthorized encryption or modification, OmAV immediately triggers an alert and re-arms the trap, while blocking 25+ known ransomware extensions (`.lockbit`, `.wannacry`, `.ryuk`, `.blackcat`, `.akira`).
+4. **Live LOLBin Command-Line Sentinel**: Intercepts Living-Off-the-Land Binary abuse (`vssadmin delete shadows`, `wmic shadowcopy delete`, `bcdedit /set recoveryenabled no`, `certutil -urlcache`, `regsvr32 /s /u /i:http`, `mshta javascript:`).
+5. **AMSI & Script De-Obfuscator**: Normalizes PowerShell backtick (`` ` ``) and caret (`^`) obfuscation, de-concatenates nested strings (`'Amsi'+'Utils'`), automatically unpacks Base64 UTF-16LE (`-EncodedCommand`) and UTF-8 payloads directly in memory, and inspects decoded execution buffers.
+6. **Live Threat Intelligence Delta Sync**: 1-click sync pulling verified recent SHA-256 malware signatures directly from `abuse.ch` MalwareBazaar and deduplicating them into local storage.
+
+---
+
+### 2. 🌐 32-City Multi-Peer Global WireGuard® VPN Network
+- **Kernel-Level WireGuard Performance**: ChaCha20-Poly1305 symmetric encryption for maximum bandwidth, lower ping, and minimal CPU overhead.
+- **32 Global Metros Across 19 Countries**:
+  - **Americas (14 Cities)**: Virginia (US East Gateway), New York City, Miami, Chicago, Dallas, Los Angeles, Seattle, Oregon, Toronto, Montreal, Vancouver, Mexico City, São Paulo, Buenos Aires.
+  - **Europe (11 Cities)**: London, Manchester, Dublin, Frankfurt, Berlin, Amsterdam, Paris, Zurich (Privacy Vault), Stockholm, Madrid, Milan.
+  - **Asia-Pacific & Middle East (7 Cities)**: Tokyo, Osaka, Seoul, Singapore, Sydney, Mumbai, Dubai.
+- **Dynamic Multi-Peer Subnet Management**: Automated server daemon assigns unique `/32` IP leases (`10.8.0.3` to `10.8.254.254`) via Linux kernel hot-reloading with zero tunnel downtime.
+- **4 Dedicated Tunnel Profiles**:
+  - 🎮 **Gaming & Low Ping**: Clamped 1420 MTU buffer and direct fast-path routing to eliminate jitter.
+  - ⚡ **P2P & Fast Downloads**: Optimized TCP/UDP window buffers for maximum throughput.
+  - 🎬 **Streaming & 4K Media**: High-bitrate unbuffered pipeline for Netflix, YouTube, and sports.
+  - 🛡️ **Ultra-Privacy & Ad-Block**: Zero-log DNS sinkhole for trackers and malware with a hard Kill Switch.
+
+---
+
+### 3. 🔑 Zero-Knowledge Password, Card & Identity Vault
+- **AES-256-GCM Cryptographic Storage**: Local zero-knowledge credential vault protected by PBKDF2 (100,000 iterations) and memory zeroization.
+- **Multi-Record Management**: Store **Logins**, **Payment Cards** (with CVV, expiration, and masked numbers), and **Addresses & Identities**.
+- **1-Click Browser CSV Import**: Seamless migration from **Google Chrome, Microsoft Edge, Mozilla Firefox, Opera, and Bitwarden**.
+- **Cross-Browser Extension (`browser-extension/`)**:
+  - Manifest V3 extension compatible with **Chrome, Edge, Brave, Opera, and Firefox**.
+  - In-field shield autofill badge on login and credential inputs.
+  - Automatic **"Save password to OmAV Vault?"** prompt on submission.
+  - Built-in 8–64 character cryptographic password generator.
+
+---
+
+### 4. 🧰 Integrated Windows Optimization & Maintenance
+- **Registry Snapshot & 1-Click Rollback**: Create point-in-time system state backups before installing software or running deep cleans.
+- **Active Process & Network Sentry**: Real-time process inspection with 1-click Windows Firewall rule creation.
+- **Safe Drive Cleaner**: Clean temporary clutter, cache, and stale logs without risking system stability.
+- **Cryptographic File Shredder**: Multi-pass secure file wiper with Windows Explorer context menu integration.
+- **System Stats HUD Overlay**: Collapsible live HUD tracking CPU, GPU, RAM, active threads, and battery levels.
+
+---
+
+### 5. 🔄 Cryptographic Auto-Updater & CDN Architecture
+- **Zero-Egress Distribution**: Hosted across GitHub Raw CDN, GitHub Releases API, and the AWS Control Node.
+- **In-Memory SHA-256 Verification**: Verifies downloaded installer packages against the signed [update_manifest.json](update_manifest.json) before execution.
+- **1-Click Silent Update**: Automatically launches the verified installer with `/SILENT /CLOSEAPPLICATIONS /RESTARTAPPLICATIONS`.
+
+---
+
+## 💎 Edition Comparison
+
+| Capability | Community Free | Pro 14-Day Free Trial | OmAV Complete Pro |
+| :--- | :---: | :---: | :---: |
+| **Rust Multi-Threaded Engine** | ✅ Yes | ✅ Yes (Turbo) | ✅ Yes (Turbo) |
+| **6-Layer Active Defense Matrix** | ✅ Yes | ✅ Yes | ✅ Yes |
+| **WinVerifyTrust & YARA Engine** | ✅ Yes | ✅ Yes | ✅ Yes |
+| **Ransomware Canaries & Extension Guard** | ✅ Yes | ✅ Yes | ✅ Yes |
+| **LOLBin & AMSI De-Obfuscator** | ✅ Yes | ✅ Yes | ✅ Yes |
+| **Live MalwareBazaar Threat Sync** | ✅ Yes | ✅ Priority Stream | ✅ Priority Stream |
+| **WireGuard® VPN Shield** | 500 MB Free Test-Drive | ✅ **Unlimited Bandwidth** | ✅ **Unlimited Bandwidth** |
+| **32 Global City Exit Nodes** | Virginia Gateway | ✅ **All 32 Global Metros** | ✅ **All 32 Global Metros** |
+| **VPN Tunnel Modes (Gaming/P2P/Streaming)** | ✅ Standard | ✅ **Priority Pipes** | ✅ **Priority Dedicated** |
+| **Zero-Knowledge Password Vault** | Read-Only | ✅ **Full AES-256-GCM** | ✅ **Full AES-256-GCM** |
+| **Browser Extension Autofill** | ✅ Yes | ✅ **Full Sync** | ✅ **Full Sync** |
+| **1-Click Windows Firewall Blocking** | — | ✅ **Included** | ✅ **Included** |
+| **Price** | **$0 Free Forever** | **$0 for 14 Days** | **$3.99/mo** or **$34.99/yr** |
+
+---
+
+## 🛠️ Developer Setup & Building from Source
+
+### Prerequisites
+- [Rust & Cargo](https://www.rust-lang.org/tools/install) (1.75+)
+- [Flutter SDK](https://flutter.dev/docs/get-started/install) (3.24+) with Windows Desktop enabled
+- [Inno Setup 6](https://jrsoftware.org/isdl.php) (for packaging the single-file installer)
+
+### 1-Click Release Build Pipeline
+Run the unified PowerShell release packaging script:
+```powershell
+.\build_release.ps1
+```
+This automatically:
+1. Compiles `engine/` into an optimized release DLL (`antivirus_engine.dll`).
+2. Builds the obfuscated Flutter Windows desktop application.
+3. Bundles embedded WireGuard binaries (`wireguard.exe`, `wg.exe`) and signatures.
+4. Generates `dist/OmAV-Setup-v0.9.0-beta.exe` and outputs the signed `update_manifest.json`.
+
+### Running Unit & Widget Tests
+```powershell
+# Run Rust Engine unit tests (41 tests)
+cd engine
+cargo test --lib
+
+# Run Flutter GUI widget tests (57 tests)
+cd ../frontend
+flutter test
+```
+
+---
+
+## 🤝 Community, Support & Links
+- **Download Latest Installer**: [GitHub Releases](https://github.com/critmaths/avprog/releases)
+- **Submit Bug Reports & Ideas**: [GitHub Issues](https://github.com/critmaths/avprog/issues)
+- **Official Website & Docs**: [omavsecurity.wordpress.com](https://omavsecurity.wordpress.com)
+- **Support Independent Development**: [Patreon](https://patreon.com/omav)
+
+---
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Platform-Windows%2010%20%7C%2011%20(64--bit)-0078D6?logo=windows" alt="Platform" />
-  <img src="https://img.shields.io/badge/Engine-Native%20Rust%20(Rayon%20Multi--core)-dea584?logo=rust" alt="Rust Engine" />
-  <img src="https://img.shields.io/badge/Frontend-Flutter%20Desktop-02569B?logo=flutter" alt="Flutter Desktop" />
-  <img src="https://img.shields.io/badge/VPN-WireGuard%20ChaCha20--Poly1305-881337" alt="WireGuard VPN" />
-  <img src="https://img.shields.io/badge/Vault-AES--256--GCM%20Zero--Knowledge-6366f1" alt="Vault" />
-  <img src="https://img.shields.io/badge/Extension-Chrome%20%7C%20Edge%20%7C%20Firefox%20%7C%20Opera-a855f7" alt="Browser Extension" />
-  <img src="https://img.shields.io/badge/License-Community%20Free%20%2F%20Commercial%20Pro-10b981" alt="License" />
+  <b>© 2026 Critical Softworks. All rights reserved.</b><br/>
+  <i>Engineered with Rust, Flutter, and WireGuard for unapologetic Windows security and privacy.</i>
 </p>
-
----
-
-## 💡 About OmAV
-
-Tired of legacy antivirus suites consuming 15% of your CPU, gigabytes of RAM, and popping up intrusive ads while you work or game? 
-
-**OmAV** is built from the ground up to solve this:
-- **Core Native Engine:** Written in memory-safe, ultra-fast **Rust** with multi-threaded parallel file analysis via Rayon.
-- **Zero-Day Heuristics:** Advanced Shannon entropy analysis, PE section inspection, direct NT syscall evasion detection, and Early Bird APC injection sentries.
-- **Built-in VPN Shield:** High-speed encrypted WireGuard tunnel with specialized gaming, streaming, P2P, and privacy profiles.
-- **Zero-Knowledge Vault & Browser Autofill:** AES-256-GCM encrypted passwords, payment cards, and identities with full extension autofill.
-- **Zero Background Lag:** Designed to protect your machine silently with negligible resource overhead (<60 MB RAM).
-
----
-
-## ⚡ Quick Download & Setup (Everyday Users)
-
-> **No developer tools required.** OmAV ships as a standalone Windows installer under 16 MB.
-
-1. **[Download Latest OmAV-Setup-v0.9.0-beta.exe](https://github.com/critmaths/omav-releases/releases/latest)**
-2. Run the installer wizard and choose your installation directory.
-3. Launch **OmAV** from your Start Menu or Desktop and run your first scan!
-
----
-
-## 🛡️ Key Features
-
-### 🚀 High-Speed Antivirus & Heuristic Defense
-- **Multi-Core Parallel Scanner:** Scans thousands of files in seconds using Rayon worker threads.
-- **Dual Heuristic & Signature Detection:** Combines MD5/SHA-256 database matching with dynamic Shannon entropy scoring to flag packed, encrypted, or disguised executables.
-- **Advanced Evasion Sentry:** Detects direct NT syscalls (`NtAllocateVirtualMemory`, `NtWriteVirtualMemory`, `NtCreateThreadEx`), Early Bird APC queues, Process Hollowing, and memory blinding.
-- **Real-Time Guard:** Actively watches drop zones, downloads, and temp folders to neutralize zero-day threats the moment they arrive.
-- **Native Windows Desktop Notifications:** Fires out-of-app toast alerts from the system tray in the bottom right corner above all running full-screen or windowed apps whenever threats are quarantined or intercepted.
-- **Intelligent Threat Severity Gating:** High and Extreme threats (Trojans, Ransomware, process injectors) are automatically isolated into the AES-256 vault immediately, while Low severity items (unsigned utility scripts, heuristic warnings) are flagged for user review to prevent disruptive false positives.
-- **Isolated Quarantine:** Safely encrypts and isolates threats using AES-256-GCM.
-
-### 🌐 OmAV VPN Shield (WireGuard Encrypted Network Tunnel)
-- **High-Speed ChaCha20-Poly1305 Tunnels:** Modern in-kernel WireGuard cryptography for maximum throughput and security.
-- **Free 500 MB Test-Drive:** Test the VPN connection for free with zero credit card required.
-- **Dedicated Exit Nodes:** Connect to high-speed dedicated servers (e.g. AWS Lightsail node at `100.29.30.198`).
-- **4 Dedicated Tunnel Modes:**
-  - 🎮 **Gaming & Low Latency:** Direct MTU clamping (1420 bytes) to eliminate packet fragmentation and drop ping times.
-  - ⚡ **P2P & Fast Downloads:** Optimized TCP/UDP window buffers for torrenting and high-bandwidth downloads.
-  - 🎬 **Streaming & 4K Media:** High-bitrate unbuffered pipeline for Netflix, YouTube, Disney+, and live sports.
-  - 🛡️ **Ultra-Privacy & Ad-Block:** Network-wide DNS blocking of ad trackers, malware beacons, and fingerprinting scripts with strict Kill Switch.
-
-### 🔑 Zero-Knowledge Password, Card & Identity Vault
-- **AES-256-GCM Hardware-Level Encryption:** Hardware-encrypted local vault with PBKDF2 master key derivation.
-- **Multi-Category Storage:** Dedicated tabs and models for **Website Logins**, **Credit/Debit Cards** (with CVV and masked preview), and **Addresses & Autofill Identities**.
-- **1-Click Browser CSV Import:** Export from **Chrome, Edge, Firefox, Opera, or Bitwarden** as CSV and import all saved credentials into OmAV in seconds.
-- **Cross-Browser Extension (Chrome, Edge, Opera, Firefox):**
-  - **In-Field Shield Badge:** Discrete OmAV badge inside username and password fields for 1-click autofill.
-  - **"Save to OmAV Vault?" Prompt:** Automatically captures submitted credentials and offers to protect them in your vault.
-  - **"Switch to OmAV" Banner:** Smooth onboarding prompt to switch from your browser's unencrypted default password saving to OmAV.
-  - **Cryptographic Password Generator:** Built-in 8–64 character entropy generator with customizable character sets.
-
-### 🧰 Integrated Windows System Care
-- **Registry Auditor & 1-Click Rollback:** Automatically inspects Windows registry hives for invalid references or orphaned keys, and creates safe `.reg` backup snapshots before applying any fixes.
-- **Active Network Socket Sentry:** Audits all open TCP/UDP sockets, flags unverified remote connections, and creates 1-click Windows Firewall rules.
-- **Deep Clean & Drive Optimizer:** Reclaims gigabytes of disk space by safely clearing temporary cache, orphaned crash dumps, and stale system logs.
-- **System Stats Overlay:** Collapsible live HUD tracking CPU, GPU, RAM, active threads, and battery levels.
-
----
-
-## 💎 Plan Comparison
-
-| Feature | Community Free Edition | OmAV Complete PRO |
-| :--- | :---: | :---: |
-| **High-Performance Rust Scanner** | ✅ Yes | ✅ Turbo Multi-Threaded |
-| **On-Demand & Custom Folder Scans** | ✅ Yes | ✅ Yes |
-| **Real-Time File Sentry** | ✅ Yes | ✅ Priority Real-Time Guard |
-| **Advanced Zero-Day Heuristics** | ✅ Standard | ✅ Priority Cloud Stream |
-| **OmAV WireGuard VPN Shield** | 500 MB Free Test-Drive (US East) | ✅ **Unlimited Bandwidth (Dedicated 10Gbps Nodes)** |
-| **VPN Tunnel Modes (Gaming/P2P/Streaming/Privacy)** | ✅ Standard | ✅ **Dedicated Priority Pipes** |
-| **Password, Card & Identity Vault** | Basic Local View | ✅ **Full AES-256-GCM Vault** |
-| **Browser Extension (Chrome/Edge/Firefox/Opera)** | ✅ Yes | ✅ **Full Autofill & Auto-Save Sync** |
-| **1-Click Browser Password CSV Import** | ✅ Yes | ✅ **Unlimited Batch Import** |
-| **Registry Snapshot & 1-Click Rollback** | ✅ Yes | ✅ Yes |
-| **Network Sentry & Drive Optimizer** | ✅ Yes | ✅ Yes |
-| **Cryptographic File Shredder** | ✅ Yes | ✅ Yes |
-| **Floating System Stats HUD** | ✅ Yes | ✅ Yes |
-| **Pricing** | **100% Free Forever** | **$3.99/mo** • **$19.99/6mo** • **$34.99/yr** • **$49.99 Lifetime** |
-| **Get Access** | [Download Free Beta](https://github.com/critmaths/omav-releases/releases/latest) | [Official Website & Store](https://omavsecurity.wordpress.com/#pricing) |
-
----
-
-## 💻 System Requirements
-
-- **Operating System:** Windows 10 or Windows 11 (64-bit architecture)
-- **Processor:** 64-bit Intel, AMD, or ARM (x64 emulation)
-- **RAM:** Minimum 512 MB (less than 60 MB RAM typical footprint)
-- **Disk Space:** ~50 MB installed
-
----
-
-## 🤝 Community & Support
-
-- **Bug Reports & Issues:** [GitHub Issues](https://github.com/critmaths/omav-releases/issues)
-- **Official Website:** [omavsecurity.wordpress.com](https://omavsecurity.wordpress.com)
-- **Support on Patreon:** [patreon.com/omav](https://patreon.com/omav)
-
----
-*&copy; 2026 Critical Softworks. All rights reserved. Precision Engineering for Modern Defense.*
