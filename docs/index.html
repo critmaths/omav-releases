@@ -452,9 +452,8 @@
       <nav class="nav-links">
         <a href="#defense-matrix">Active Defense</a>
         <a href="#features">VPN &amp; Vault</a>
+        <a href="#oem-sdk">Embedded SDK</a>
         <a href="#pricing">Pricing &amp; Enterprise</a>
-        <a href="privacy-policy/">Privacy Policy</a>
-        <a href="terms/">EULA &amp; Terms</a>
         <a href="contact/" title="Contact &amp; Enterprise Custom Quotes" style="display:inline-flex; align-items:center; gap:6px; color:#5eead4; font-weight:700; background:rgba(20,184,166,0.12); border:1px solid rgba(20,184,166,0.35); padding:5px 12px; border-radius:999px;">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
           <span>Contact</span>
@@ -591,6 +590,46 @@
             <li>📸 <strong>Registry Snapshots:</strong> 1-click cryptographic startup rollback</li>
             <li>🧹 <strong>System Drive Optimizer:</strong> Reclaim gigabytes of cache clutter</li>
             <li>🔥 <strong>DoD 5220.22-M Shredder:</strong> Multi-pass unrecoverable file erasure</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Embedded OEM Security SDK & Local Sidecar API -->
+    <section id="oem-sdk">
+      <div class="section-head">
+        <h2>OmAV Embedded Security SDK &amp; Sidecar API</h2>
+        <p>Building a system utility, SaaS file-upload backend, or MSP agent? Embed OmAV's native 64-bit Rust security core directly under your own roof in minutes.</p>
+      </div>
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-icon">⚙️</div>
+          <h3>Drop-In Native Engine (`1.1 MB` DLL)</h3>
+          <p>Zero-UI C-ABI dynamic library (`antivirus_engine.dll`) with official wrappers for <strong>Python, C# / .NET, and Node.js / Electron</strong>.</p>
+          <ul>
+            <li>✅ Sub-millisecond SHA-256 + YARA + PE Entropy scanning</li>
+            <li>✅ Automatic heap zeroization &amp; memory safety</li>
+            <li>✅ 100% on-device execution (zero cloud upload bandwidth cost)</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-icon">🔌</div>
+          <h3>Headless Local REST Sidecar API</h3>
+          <p>Run our lightweight micro-daemon on `127.0.0.1:9876` and call OmAV from any frontend or backend web stack via standard JSON HTTP:</p>
+          <ul>
+            <li>✅ `POST /v1/scan` — Scan user file uploads before storage</li>
+            <li>✅ `POST /v1/inspect/script` — AMSI &amp; LOLBin de-obfuscation</li>
+            <li>✅ `GET /v1/defense/status` &amp; `POST /v1/shred`</li>
+          </ul>
+        </div>
+        <div class="card" style="border-color: rgba(20, 184, 166, 0.45);">
+          <div class="card-icon">🤝</div>
+          <h3>OEM &amp; White-Label Licensing</h3>
+          <p>Skip $150k+ in systems engineering costs and ship a complete security suite inside your existing product this week.</p>
+          <ul>
+            <li>✅ Custom OEM &amp; ISV redistribution terms</li>
+            <li>✅ Dedicated engineering integration support</li>
+            <li>✅ <a href="contact/" style="color:#5eead4; font-weight:700; text-decoration:underline;">Contact us for an OEM Evaluation SDK &rarr;</a></li>
           </ul>
         </div>
       </div>
