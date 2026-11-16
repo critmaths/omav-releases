@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy — OmAV Security Suite &amp; Critical Softworks</title>
+  <link rel="icon" href="../favicon.ico">
+  <style>
+    :root {
+      --bg-base: #070b14;
+      --bg-card: rgba(15, 23, 42, 0.85);
+      --border-subtle: rgba(148, 163, 184, 0.16);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --accent-teal: #14b8a6;
+      --accent-cyan: #38bdf8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg-base);
+      color: var(--text-primary);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, sans-serif;
+      line-height: 1.7;
+    }
+    a { color: var(--accent-cyan); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    header {
+      border-bottom: 1px solid var(--border-subtle);
+      background: rgba(7, 11, 20, 0.9);
+      padding: 18px 24px;
+    }
+    .nav-wrap {
+      max-width: 920px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 1.15rem;
+      color: var(--text-primary);
+    }
+    .brand img { width: 34px; height: 34px; border-radius: 8px; }
+    main {
+      max-width: 920px;
+      margin: 48px auto;
+      padding: 0 24px;
+    }
+    .doc-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 18px;
+      padding: 40px;
+    }
+    h1 { font-size: 2.1rem; margin-bottom: 10px; }
+    .meta { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 28px; padding-bottom: 20px; border-bottom: 1px solid var(--border-subtle); }
+    h2 { font-size: 1.35rem; margin: 28px 0 12px; color: #2dd4bf; }
+    h3 { font-size: 1.05rem; margin: 18px 0 8px; color: #e2e8f0; }
+    p { color: #cbd5e1; margin-bottom: 14px; }
+    ul { margin: 0 0 16px 22px; color: #cbd5e1; }
+    li { margin-bottom: 6px; }
+    footer {
+      text-align: center;
+      padding: 36px 24px;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--border-subtle);
+      margin-top: 64px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav-wrap">
+      <a href="../" class="brand">
+        <img src="../assets/logo.png" alt="OmAV Logo">
+        <span>OmAV Security</span>
+      </a>
+      <a href="../">&larr; Back to Home</a>
+    </div>
+  </header>
+
+  <main>
+    <article class="doc-card">
+      <h1>Privacy Policy for OmAV &amp; Critical Softworks</h1>
+      <div class="meta">
+        <strong>Effective Date:</strong> November 15, 2026 &bull; <strong>Last Updated:</strong> November 15, 2026<br>
+        <strong>Entity:</strong> Critical Softworks ("we", "us", or "our")
+      </div>
+
+      <h2>1. Introduction &amp; Privacy Philosophy</h2>
+      <p>
+        Critical Softworks develops <strong>OmAV</strong>, a next-generation endpoint security and PC optimization suite for Microsoft Windows.
+        Unlike traditional security software that collects and uploads user file samples, document contents, and web browsing histories to remote cloud analysis clusters, <strong>OmAV operates on a strict Privacy-First, On-Device Architecture</strong>:
+      </p>
+      <ul>
+        <li>All signature matching, heuristic static analysis, PE header inspection, YARA scanning, and entropy calculations are computed <strong>100% locally</strong> on your device by our compiled Rust engine.</li>
+        <li>Your personal files, photos, financial documents, source code, and keystrokes are <strong>never</strong> harvested, transmitted, analyzed, or monetized by our servers.</li>
+      </ul>
+
+      <h2>2. Information We Process</h2>
+      <h3>A. Local Endpoint Processing (Non-Collected Data)</h3>
+      <ul>
+        <li><strong>File System Scans:</strong> Target file paths, file sizes, and computed SHA-256 hashes are analyzed in local device memory during scanning and discarded when the scan completes.</li>
+        <li><strong>Quarantine &amp; Password Vault:</strong> Quarantined threats and saved vault credentials are encrypted locally using AES-256-GCM encryption and never leave your machine unencrypted.</li>
+        <li><strong>System Maintenance &amp; Shredder:</strong> Drive cleanup, registry snapshots, and DoD multi-pass file shredding execute locally without outbound network interaction.</li>
+      </ul>
+
+      <h3>B. Technical Telemetry &amp; Essential Communications</h3>
+      <ul>
+        <li><strong>Update &amp; Threat Feed Checks:</strong> To protect against emerging zero-day threats, the OmAV client checks our official GitHub release channel and Abuse.ch SHA-256 hash feeds for newer definitions.</li>
+        <li><strong>License Activation &amp; Seat Verification:</strong> When activating a Pro or 35-Seat Enterprise license, we store only your subscription status, term expiration, and a non-reversible machine identifier to enforce seat limits.</li>
+      </ul>
+
+      <h3>C. Payment &amp; Transaction Data</h3>
+      <p>
+        Payments are processed securely by <strong>Stripe</strong>. Critical Softworks never receives, sees, or stores your credit card numbers, CVV codes, or banking credentials. Stripe provides us only with transaction status, subscription term, and billing email for license fulfillment.
+      </p>
+
+      <h3>D. WireGuard VPN Shield (Zero-Logs Architecture)</h3>
+      <p>
+        The integrated WireGuard VPN Shield operates on an uncompromising <strong>Zero-Logs Policy</strong>. We do not log, monitor, record, or store the websites you visit, the DNS queries you execute, or the payload data you transmit while connected.
+      </p>
+
+      <h2>3. Your Privacy Rights (GDPR &amp; CCPA/CPRA)</h2>
+      <p>
+        We do not sell, rent, or trade personal information to data brokers or third parties. You have the right to request access to, rectification of, or erasure of any support or billing records associated with your license by emailing <a href="mailto:critmaths@gmail.com">critmaths@gmail.com</a>.
+      </p>
+
+      <h2>4. Contact Information</h2>
+      <p>
+        <strong>Critical Softworks</strong><br>
+        Privacy &amp; Security Officer: <a href="mailto:critmaths@gmail.com">critmaths@gmail.com</a><br>
+        Official Repository: <a href="https://github.com/critmaths/omav-releases">https://github.com/critmaths/omav-releases</a>
+      </p>
+    </article>
+  </main>
+
+  <footer>
+    &copy; 2026 Critical Softworks. All rights reserved. &bull; <a href="../">Home</a> &bull; <a href="../terms/">EULA &amp; Terms</a>
+  </footer>
+</body>
+</html>

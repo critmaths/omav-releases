@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>End User License Agreement (EULA) &amp; Terms — OmAV Security</title>
+  <link rel="icon" href="../favicon.ico">
+  <style>
+    :root {
+      --bg-base: #070b14;
+      --bg-card: rgba(15, 23, 42, 0.85);
+      --border-subtle: rgba(148, 163, 184, 0.16);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --accent-teal: #14b8a6;
+      --accent-cyan: #38bdf8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg-base);
+      color: var(--text-primary);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, sans-serif;
+      line-height: 1.7;
+    }
+    a { color: var(--accent-cyan); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    header {
+      border-bottom: 1px solid var(--border-subtle);
+      background: rgba(7, 11, 20, 0.9);
+      padding: 18px 24px;
+    }
+    .nav-wrap {
+      max-width: 920px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 1.15rem;
+      color: var(--text-primary);
+    }
+    .brand img { width: 34px; height: 34px; border-radius: 8px; }
+    main {
+      max-width: 920px;
+      margin: 48px auto;
+      padding: 0 24px;
+    }
+    .doc-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 18px;
+      padding: 40px;
+    }
+    h1 { font-size: 2.1rem; margin-bottom: 10px; }
+    .meta { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 28px; padding-bottom: 20px; border-bottom: 1px solid var(--border-subtle); }
+    h2 { font-size: 1.35rem; margin: 28px 0 12px; color: #2dd4bf; }
+    p { color: #cbd5e1; margin-bottom: 14px; }
+    ul { margin: 0 0 16px 22px; color: #cbd5e1; }
+    li { margin-bottom: 6px; }
+    footer {
+      text-align: center;
+      padding: 36px 24px;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--border-subtle);
+      margin-top: 64px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav-wrap">
+      <a href="../" class="brand">
+        <img src="../assets/logo.png" alt="OmAV Logo">
+        <span>OmAV Security</span>
+      </a>
+      <a href="../">&larr; Back to Home</a>
+    </div>
+  </header>
+
+  <main>
+    <article class="doc-card">
+      <h1>End User License Agreement (EULA) &amp; Terms of Service</h1>
+      <div class="meta">
+        <strong>Publisher:</strong> Critical Softworks &bull; <strong>Version:</strong> 0.9.0-beta &bull; <strong>Last Updated:</strong> November 2026
+      </div>
+
+      <p>
+        PLEASE READ THIS END USER LICENSE AGREEMENT ("AGREEMENT") CAREFULLY BEFORE DOWNLOADING, INSTALLING, OR USING OMAV ("THE SOFTWARE"). BY INSTALLING, COPYING, OR USING THE SOFTWARE, YOU AGREE TO BE LEGALLY BOUND BY ALL TERMS AND CONDITIONS OF THIS AGREEMENT.
+      </p>
+
+      <h2>1. Grant of License</h2>
+      <p>
+        Critical Softworks grants you a revocable, non-exclusive, non-transferable license to install and use the Software on compatible Microsoft Windows (10 and 11, 64-bit) workstations:
+      </p>
+      <ul>
+        <li><strong>Community Edition:</strong> Provided free of charge for personal endpoint security, on-demand malware scanning, and diagnostic checks.</li>
+        <li><strong>Complete PRO Edition (1 PC):</strong> Activated via an authorized license key purchased through Stripe, granting full access to the 6-Layer Active Defense Matrix, unlimited WireGuard VPN Shield, Zero-Knowledge Password Vault, and system optimization tools on 1 workstation.</li>
+        <li><strong>Enterprise Edition (Up to 35 PCs):</strong> Grants multi-workstation deployment rights for up to 35 concurrent Windows endpoints under a centralized subscription seat pool.</li>
+      </ul>
+
+      <h2>2. Privacy &amp; Local-First Processing</h2>
+      <p>
+        All file scanning, YARA signature matching, heuristic analysis, and PE entropy calculations execute 100% locally on your machine. Full details are governed by our <a href="../privacy-policy/">Privacy Policy</a>.
+      </p>
+
+      <h2>3. User Backup Responsibility &amp; Data Loss Prevention</h2>
+      <p>
+        Security software, quarantine vaults, registry cleaners, and secure file shredders interact directly with system storage. While OmAV provides reversible quarantine, registry snapshots, and exclusion whitelists, <strong>you are solely responsible for maintaining regular backups of critical files and data</strong>.
+      </p>
+
+      <h2>4. False Positives &amp; Dispute Resolution</h2>
+      <p>
+        OmAV provides built-in Exclusions &amp; Whitelist controls. Software vendors and users may report false positives at <a href="https://github.com/critmaths/omav-releases/issues">github.com/critmaths/omav-releases/issues</a> or via <a href="mailto:critmaths@gmail.com">critmaths@gmail.com</a>.
+      </p>
+
+      <h2>5. Third-Party &amp; Open Source Notices</h2>
+      <ul>
+        <li><strong>WireGuard:</strong> Bundles official Windows binaries (`wireguard.exe` and `wg.exe`), Copyright &copy; Jason A. Donenfeld, licensed under GPLv2 (<a href="https://git.zx2c4.com/wireguard-windows">source code</a>) and executed as an independent subprocess.</li>
+        <li><strong>Flutter &amp; Rust Crates:</strong> Licensed under permissive BSD-3-Clause, MIT, and Apache-2.0 licenses.</li>
+      </ul>
+
+      <h2>6. Disclaimer of Warranties &amp; Limitation of Liability</h2>
+      <p>
+        THE SOFTWARE IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND. NO ANTIVIRUS OR SECURITY TOOL PROVIDES 100% IMMUNITY AGAINST ALL CYBERSECURITY THREATS. TO THE MAXIMUM EXTENT PERMITTED BY LAW, CRITICAL SOFTWORKS' AGGREGATE LIABILITY SHALL NOT EXCEED THE AMOUNT PAID BY YOU FOR THE SOFTWARE IN THE TWELVE (12) MONTHS PRECEDING THE CLAIM OR $5.00 USD.
+      </p>
+
+      <h2>7. Governing Law</h2>
+      <p>
+        This Agreement is governed by the laws of the State of Texas and the federal laws of the United States.
+      </p>
+    </article>
+  </main>
+
+  <footer>
+    &copy; 2026 Critical Softworks. All rights reserved. &bull; <a href="../">Home</a> &bull; <a href="../privacy-policy/">Privacy Policy</a>
+  </footer>
+</body>
+</html>

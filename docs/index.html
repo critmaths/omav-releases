@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OmAV Security Suite — Next-Gen Rust Antivirus, WireGuard VPN &amp; Zero-Knowledge Vault</title>
+  <meta name="description" content="OmAV is a high-performance Windows 10 & 11 security suite powered by a native 64-bit Rust engine, 6-Layer Active Defense Matrix, 32-City WireGuard VPN Shield, and Zero-Knowledge AES-256 Password Vault.">
+  <link rel="icon" href="favicon.ico">
+  <style>
+    :root {
+      --bg-base: #070b14;
+      --bg-surface: #0f172a;
+      --bg-card: rgba(15, 23, 42, 0.78);
+      --border-subtle: rgba(148, 163, 184, 0.14);
+      --border-accent: rgba(20, 184, 166, 0.45);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --accent-teal: #14b8a6;
+      --accent-cyan: #38bdf8;
+      --accent-amber: #f59e0b;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    html {
+      scroll-behavior: smooth;
+      background-color: var(--bg-base);
+      color: var(--text-primary);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, sans-serif;
+      line-height: 1.6;
+    }
+    body {
+      background:
+        radial-gradient(circle at 15% 10%, rgba(20, 184, 166, 0.12), transparent 40%),
+        radial-gradient(circle at 85% 20%, rgba(56, 189, 248, 0.10), transparent 40%),
+        var(--bg-base);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    /* Header Navigation */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(16px);
+      background: rgba(7, 11, 20, 0.82);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .nav-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 74px;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      font-size: 1.25rem;
+      letter-spacing: -0.3px;
+    }
+    .brand img {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+    }
+    .brand-badge {
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: rgba(20, 184, 166, 0.16);
+      color: #2dd4bf;
+      border: 1px solid rgba(20, 184, 166, 0.35);
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+    .nav-links a:hover {
+      color: var(--text-primary);
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 11px 22px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.92rem;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      cursor: pointer;
+      border: none;
+    }
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #14b8a6 0%, #0284c7 100%);
+      color: #ffffff;
+      box-shadow: 0 6px 24px rgba(20, 184, 166, 0.32);
+    }
+    .btn-outline {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-primary);
+      border: 1px solid var(--border-subtle);
+    }
+    .btn-outline:hover {
+      border-color: var(--accent-cyan);
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 84px 0 64px;
+      text-align: center;
+    }
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      border-radius: 999px;
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      color: var(--accent-cyan);
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.4px;
+      margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-size: clamp(2.3rem, 5vw, 3.8rem);
+      font-weight: 900;
+      letter-spacing: -1px;
+      line-height: 1.12;
+      max-width: 920px;
+      margin: 0 auto 20px;
+      background: linear-gradient(135deg, #ffffff 30%, #5eead4 70%, #38bdf8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero p {
+      font-size: 1.15rem;
+      color: var(--text-secondary);
+      max-width: 740px;
+      margin: 0 auto 36px;
+    }
+    .hero-actions {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+    .hero-actions .btn {
+      padding: 15px 30px;
+      font-size: 1.02rem;
+    }
+    .checksum-box {
+      max-width: 680px;
+      margin: 18px auto 0;
+      background: rgba(15, 23, 42, 0.75);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 10px 16px;
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+    }
+    .checksum-box summary {
+      cursor: pointer;
+      font-weight: 600;
+      color: #cbd5e1;
+      user-select: none;
+    }
+    .checksum-code {
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      background: #050811;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-family: Consolas, monospace;
+      font-size: 0.78rem;
+      color: #5eead4;
+      overflow-x: auto;
+    }
+    .copy-btn {
+      background: rgba(20, 184, 166, 0.2);
+      color: #5eead4;
+      border: 1px solid rgba(20, 184, 166, 0.4);
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    /* Stats Bar */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin: 40px 0 64px;
+    }
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 22px;
+      text-align: center;
+    }
+    .stat-val {
+      font-size: 1.9rem;
+      font-weight: 900;
+      color: #ffffff;
+    }
+    .stat-lbl {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }
+
+    /* Section Headers */
+    section {
+      padding: 64px 0;
+    }
+    .section-head {
+      text-align: center;
+      margin-bottom: 44px;
+    }
+    .section-head h2 {
+      font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+    .section-head p {
+      color: var(--text-secondary);
+      max-width: 660px;
+      margin: 0 auto;
+    }
+
+    /* Feature Cards Grid */
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+      gap: 24px;
+    }
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 18px;
+      padding: 28px;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+    .card:hover {
+      border-color: var(--border-accent);
+      transform: translateY(-2px);
+    }
+    .card-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
+      background: rgba(20, 184, 166, 0.14);
+      color: #2dd4bf;
+      font-size: 1.4rem;
+      margin-bottom: 16px;
+    }
+    .card h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .card p {
+      font-size: 0.93rem;
+      color: var(--text-secondary);
+    }
+    .card ul {
+      list-style: none;
+      margin-top: 14px;
+      font-size: 0.88rem;
+      color: #cbd5e1;
+    }
+    .card ul li {
+      padding: 4px 0;
+    }
+
+    /* Pricing Switcher */
+    .pricing-toggle-wrap {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 36px;
+    }
+    .pricing-toggle {
+      display: inline-flex;
+      background: #0b1120;
+      border: 1px solid var(--border-subtle);
+      padding: 5px;
+      border-radius: 999px;
+      gap: 6px;
+    }
+    .toggle-btn {
+      padding: 10px 24px;
+      border-radius: 999px;
+      border: none;
+      background: transparent;
+      color: var(--text-secondary);
+      font-weight: 700;
+      font-size: 0.92rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .toggle-btn.active {
+      background: linear-gradient(135deg, #14b8a6 0%, #0284c7 100%);
+      color: #ffffff;
+      box-shadow: 0 4px 14px rgba(20, 184, 166, 0.3);
+    }
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(255px, 1fr));
+      gap: 20px;
+      align-items: stretch;
+    }
+    .price-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 18px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    .price-card.featured {
+      border: 2px solid var(--accent-teal);
+      background: linear-gradient(160deg, rgba(20, 184, 166, 0.12) 0%, rgba(15, 23, 42, 0.9) 100%);
+      box-shadow: 0 12px 35px rgba(20, 184, 166, 0.16);
+    }
+    .price-badge {
+      position: absolute;
+      top: -12px;
+      right: 20px;
+      background: linear-gradient(135deg, #14b8a6, #0284c7);
+      color: #ffffff;
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 4px 12px;
+      border-radius: 999px;
+      letter-spacing: 0.5px;
+    }
+    .price-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .price-sub {
+      font-size: 0.84rem;
+      color: var(--text-secondary);
+      margin-bottom: 18px;
+    }
+    .price-amount {
+      font-size: 2.35rem;
+      font-weight: 900;
+      color: #ffffff;
+      margin-bottom: 4px;
+    }
+    .price-amount span {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+    }
+    .price-equiv {
+      font-size: 0.8rem;
+      color: #2dd4bf;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+    .price-features {
+      list-style: none;
+      font-size: 0.88rem;
+      color: #cbd5e1;
+      margin-bottom: 26px;
+      flex-grow: 1;
+    }
+    .price-features li {
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.08);
+    }
+    .hidden {
+      display: none !important;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border-subtle);
+      padding: 44px 0;
+      margin-top: 64px;
+      color: var(--text-secondary);
+      font-size: 0.88rem;
+    }
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .footer-links {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .footer-links a:hover {
+      color: var(--accent-cyan);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation -->
+  <header>
+    <div class="container nav-bar">
+      <a href="./" class="brand">
+        <img src="assets/logo.png" alt="OmAV Shield Logo">
+        <span>OmAV Security</span>
+        <span class="brand-badge">v0.9.0-beta</span>
+      </a>
+      <nav class="nav-links">
+        <a href="#defense-matrix">Active Defense</a>
+        <a href="#features">VPN &amp; Vault</a>
+        <a href="#pricing">Pricing &amp; Enterprise</a>
+        <a href="privacy-policy/">Privacy Policy</a>
+        <a href="terms/">EULA &amp; Terms</a>
+      </nav>
+      <a href="https://github.com/critmaths/omav-releases/releases/download/v0.9.0-beta/OmAV-Setup-v0.9.0-beta.exe" class="btn btn-primary">
+        ⬇ Download for Windows
+      </a>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <main class="container">
+    <section class="hero">
+      <div class="hero-pill">🛡️ NATIVE 64-BIT RUST ENGINE • WINDOWS 10 &amp; 11</div>
+      <h1>Next-Generation Endpoint Protection &amp; Machine Defense</h1>
+      <p>
+        Sub-millisecond malware interception, a 6-Layer Active Defense Matrix, 32-City WireGuard VPN Shield, and a Zero-Knowledge AES-256 Password Vault—engineered in memory-safe Rust with 100% local privacy.
+      </p>
+      <div class="hero-actions">
+        <a href="https://github.com/critmaths/omav-releases/releases/download/v0.9.0-beta/OmAV-Setup-v0.9.0-beta.exe" class="btn btn-primary">
+          ⬇ Download Free Installer (v0.9.0-beta • 15.8 MB)
+        </a>
+        <a href="#pricing" class="btn btn-outline">
+          View Pro &amp; Enterprise Plans
+        </a>
+      </div>
+      <div style="font-size: 0.82rem; color: var(--text-secondary);">
+        Includes 14-Day Full Pro Trial out of the box • Works alongside Microsoft Defender • Zero telemetry harvesting
+      </div>
+
+      <details class="checksum-box">
+        <summary>Verify Official Installer SHA-256 Checksum (`OmAV-Setup-v0.9.0-beta.exe`)</summary>
+        <div class="checksum-code">
+          <span id="sha256-text">9ca0f417816d34a52a40d2b5c0ce6b5312975d6801e26b239218142bdb4d821e</span>
+          <button class="copy-btn" onclick="copyChecksum(this)">Copy Hash</button>
+        </div>
+      </details>
+
+      <!-- Live Telemetry Highlights -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-val">6 Layers</div>
+          <div class="stat-lbl">Active Defense Matrix</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val">32 Cities</div>
+          <div class="stat-lbl">WireGuard VPN Exit Nodes</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val">AES-256-GCM</div>
+          <div class="stat-lbl">Zero-Knowledge Vault &amp; Quarantine</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val">&lt; 85 MB</div>
+          <div class="stat-lbl">Idle Native Memory Footprint</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6-Layer Active Defense Matrix -->
+    <section id="defense-matrix">
+      <div class="section-head">
+        <h2>6-Layer Elite Active Defense Matrix</h2>
+        <p>Real-time kernel-friendly endpoint protection that stops ransomware, process hollowing, and unsigned payloads before execution.</p>
+      </div>
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-icon">🔏</div>
+          <h3>1. WinVerifyTrust Authenticode</h3>
+          <p>Validates cryptographic X.509 publisher certificates on every Portable Executable (PE) binary via native Windows trust APIs.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🧬</div>
+          <h3>2. Embedded YARA Pattern Engine</h3>
+          <p>Scans binary sections and memory buffers against high-speed byte-sequence signatures and Shannon entropy heuristics.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🪤</div>
+          <h3>3. Anti-Ransomware Canaries</h3>
+          <p>Deploys hidden tripwire decoy files across critical user folders to detect unauthorized mass-encryption in milliseconds.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">⚡</div>
+          <h3>4. AMSI &amp; LOLBin Sentinel</h3>
+          <p>De-obfuscates Base64 PowerShell, WMI, CertUtil, and MSHTA command lines to block fileless living-off-the-land attacks.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🌐</div>
+          <h3>5. Abuse.ch Live Threat Intel</h3>
+          <p>Synchronizes zero-day malware SHA-256 hashes from Abuse.ch MalwareBazaar directly into your local signature database.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🧱</div>
+          <h3>6. Network Sentry &amp; Exclusions</h3>
+          <p>Inspect live TCP/UDP sockets, block rogue apps in Windows Firewall with 1 click, and manage custom path or SHA-256 scan exclusions.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Full Security & Optimization Suite -->
+    <section id="features">
+      <div class="section-head">
+        <h2>Complete Endpoint Privacy &amp; System Optimization</h2>
+        <p>Everything you need to secure your network, credentials, registry, and storage in one unified native interface.</p>
+      </div>
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-icon">🔒</div>
+          <h3>32-City WireGuard VPN Shield</h3>
+          <p>ChaCha20-Poly1305 encrypted routing across 32 global locations with 4 specialized tunnel profiles:</p>
+          <ul>
+            <li>🎮 <strong>Low-Latency Gaming:</strong> Minimal UDP jitter &amp; ping</li>
+            <li>⚡ <strong>P2P &amp; Fast Downloads:</strong> Multi-gigabit MTU tuning</li>
+            <li>🎬 <strong>4K Streaming:</strong> High-bandwidth media relays</li>
+            <li>🛡️ <strong>Ultra-Privacy:</strong> Strict Kill Switch &amp; DNS leak block</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-icon">🔑</div>
+          <h3>Zero-Knowledge Password Vault</h3>
+          <p>PBKDF2 + AES-256-GCM local vault for logins, credit cards, and identities—paired with our Manifest V3 Browser Extension:</p>
+          <ul>
+            <li>🌐 <strong>Cross-Browser:</strong> Chrome, Edge, Firefox &amp; Opera</li>
+            <li>✨ <strong>1-Click Autofill:</strong> In-field shield badges &amp; Save prompts</li>
+            <li>📥 <strong>Instant CSV Import:</strong> Import from Chrome, Edge, or Bitwarden</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-icon">🛠️</div>
+          <h3>Registry Rollback &amp; File Shredder</h3>
+          <p>Keep Windows running at peak velocity while permanently erasing sensitive documents:</p>
+          <ul>
+            <li>📸 <strong>Registry Snapshots:</strong> 1-click cryptographic startup rollback</li>
+            <li>🧹 <strong>System Drive Optimizer:</strong> Reclaim gigabytes of cache clutter</li>
+            <li>🔥 <strong>DoD 5220.22-M Shredder:</strong> Multi-pass unrecoverable file erasure</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing">
+      <div class="section-head">
+        <h2>Simple, Transparent Licensing</h2>
+        <p>Start with our free Community Edition (includes a 14-day Pro Trial), or unlock unlimited protection with instant Stripe auto-activation.</p>
+      </div>
+
+      <div class="pricing-toggle-wrap">
+        <div class="pricing-toggle" role="tablist">
+          <button id="btn-personal" class="toggle-btn active" onclick="switchPlanMode('personal')">
+            👤 Personal Pro (1 PC)
+          </button>
+          <button id="btn-enterprise" class="toggle-btn" onclick="switchPlanMode('enterprise')">
+            🏢 Enterprise (Up to 35 PCs)
+          </button>
+        </div>
+      </div>
+
+      <!-- Personal Plans Grid -->
+      <div id="grid-personal" class="pricing-grid">
+        <!-- Free / Trial -->
+        <div class="price-card">
+          <div class="price-title">Community Free</div>
+          <div class="price-sub">Essential On-Demand Scanner</div>
+          <div class="price-amount">$0 <span>/ forever</span></div>
+          <div class="price-equiv">Includes 14-Day Full Pro Trial</div>
+          <ul class="price-features">
+            <li>✅ Native Rust Quick &amp; Full Malware Scans</li>
+            <li>✅ AES-256 Encrypted Quarantine Vault</li>
+            <li>✅ Custom Path &amp; SHA-256 Exclusions</li>
+            <li>✅ 500 MB WireGuard VPN Trial Quota</li>
+          </ul>
+          <a href="https://github.com/critmaths/omav-releases/releases/download/v0.9.0-beta/OmAV-Setup-v0.9.0-beta.exe" class="btn btn-outline">
+            Download Free
+          </a>
+        </div>
+
+        <!-- Monthly Pro -->
+        <div class="price-card">
+          <div class="price-title">Pro Monthly</div>
+          <div class="price-sub">Flexible month-to-month protection</div>
+          <div class="price-amount">$3.99 <span>/ month</span></div>
+          <div class="price-equiv">Billed monthly • Cancel anytime</div>
+          <ul class="price-features">
+            <li>✅ 24/7 Real-Time Active Defense Matrix</li>
+            <li>✅ Unlimited 32-City WireGuard VPN Shield</li>
+            <li>✅ Zero-Knowledge Password &amp; Card Vault</li>
+            <li>✅ Automated Scheduled Scans &amp; Rollback</li>
+          </ul>
+          <a href="https://buy.stripe.com/14AaEYae283OctI1xl2Ji00" class="btn btn-outline">
+            Subscribe Monthly
+          </a>
+        </div>
+
+        <!-- 6-Month Pro -->
+        <div class="price-card">
+          <div class="price-title">Pro 6 Months</div>
+          <div class="price-sub">Semi-annual complete protection</div>
+          <div class="price-amount">$19.99 <span>/ 6 mos</span></div>
+          <div class="price-equiv">Equals $3.33 / month (Save 16%)</div>
+          <ul class="price-features">
+            <li>✅ All OmAV Complete Pro Features</li>
+            <li>✅ Unlimited 32-City WireGuard VPN Shield</li>
+            <li>✅ Browser Extensions (Chrome, Edge, Firefox)</li>
+            <li>✅ Priority Threat Intelligence Updates</li>
+          </ul>
+          <a href="https://buy.stripe.com/aFa6oIbi6escbpEb7V2Ji01" class="btn btn-outline">
+            Subscribe 6-Month
+          </a>
+        </div>
+
+        <!-- Annual Pro -->
+        <div class="price-card featured">
+          <div class="price-badge">MOST POPULAR</div>
+          <div class="price-title">Pro Annual</div>
+          <div class="price-sub">Best recurring value for 1 PC</div>
+          <div class="price-amount">$34.99 <span>/ year</span></div>
+          <div class="price-equiv">Equals $2.92 / month (Save 27%)</div>
+          <ul class="price-features">
+            <li>✅ All OmAV Complete Pro Features</li>
+            <li>✅ Unlimited 32-City WireGuard VPN Shield</li>
+            <li>✅ Zero-Knowledge Vault + Browser Autofill</li>
+            <li>✅ Instant Desktop Auto-Activation</li>
+          </ul>
+          <a href="https://buy.stripe.com/dRmeVedqe3NyfFU7VJ2Ji02" class="btn btn-primary">
+            Get Pro Annual
+          </a>
+        </div>
+
+        <!-- Lifetime Pro -->
+        <div class="price-card">
+          <div class="price-badge" style="background: linear-gradient(135deg, #f59e0b, #d97706);">ONE-TIME PAYMENT</div>
+          <div class="price-title">Pro Lifetime</div>
+          <div class="price-sub">Pay once, own forever on 1 PC</div>
+          <div class="price-amount">$49.99 <span>/ once</span></div>
+          <div class="price-equiv">No recurring subscription fees ever</div>
+          <ul class="price-features">
+            <li>✅ Permanent Complete Pro License Key</li>
+            <li>✅ Lifetime Engine &amp; Signature Updates</li>
+            <li>✅ Unlimited WireGuard VPN &amp; Vault</li>
+            <li>✅ Offline Cryptographic Key Validation</li>
+          </ul>
+          <a href="https://buy.stripe.com/7sYbJ271Q3Ny3Xc4Jx2Ji03" class="btn btn-outline" style="border-color: rgba(245, 158, 11, 0.5); color: #fbbf24;">
+            Buy Lifetime License
+          </a>
+        </div>
+      </div>
+
+      <!-- Enterprise Plans Grid (Up to 35 PCs) -->
+      <div id="grid-enterprise" class="pricing-grid hidden">
+        <!-- Enterprise Monthly -->
+        <div class="price-card">
+          <div class="price-title">Enterprise Monthly</div>
+          <div class="price-sub">1 Master Key for up to 35 PCs</div>
+          <div class="price-amount">$69.99 <span>/ month</span></div>
+          <div class="price-equiv">Only $2.00 per PC / month</div>
+          <ul class="price-features">
+            <li>✅ Protects up to 35 Windows Workstations</li>
+            <li>✅ Centralized Cloud Seat Pool Tracking</li>
+            <li>✅ Full 6-Layer Active Defense &amp; Firewall</li>
+            <li>✅ Unlimited VPN &amp; Password Vault per Seat</li>
+          </ul>
+          <a href="https://buy.stripe.com/00wdRa71QabW51g8ZN2Ji05" class="btn btn-outline">
+            Start Enterprise Monthly
+          </a>
+        </div>
+
+        <!-- Enterprise 6-Month -->
+        <div class="price-card">
+          <div class="price-title">Enterprise 6 Months</div>
+          <div class="price-sub">Semi-annual fleet protection (35 PCs)</div>
+          <div class="price-amount">$349.99 <span>/ 6 mos</span></div>
+          <div class="price-equiv">Only $1.67 per PC / month (Save 17%)</div>
+          <ul class="price-features">
+            <li>✅ Protects up to 35 Windows Workstations</li>
+            <li>✅ Automatic Renewal Seat Key Rollover</li>
+            <li>✅ Full 6-Layer Active Defense &amp; Firewall</li>
+            <li>✅ Priority Support &amp; False-Positive SLA</li>
+          </ul>
+          <a href="https://buy.stripe.com/5kQ00k71QgAk9hw0th2Ji06" class="btn btn-outline">
+            Start Enterprise 6-Month
+          </a>
+        </div>
+
+        <!-- Enterprise Annual -->
+        <div class="price-card featured">
+          <div class="price-badge">BEST FLEET VALUE • 35 PCs</div>
+          <div class="price-title">Enterprise Annual</div>
+          <div class="price-sub">1 full year for up to 35 company PCs</div>
+          <div class="price-amount">$599.99 <span>/ year</span></div>
+          <div class="price-equiv">Only $1.43 per PC / month (Save 29%)</div>
+          <ul class="price-features">
+            <li>✅ 1 Master Key Valid Across 35 Workstations</li>
+            <li>✅ Automated Cloud Seat Activation &amp; Audit</li>
+            <li>✅ Unlimited 32-City WireGuard VPN &amp; Vault</li>
+            <li>✅ Priority Engineering Support</li>
+          </ul>
+          <a href="https://buy.stripe.com/fZu5kE2LAgAk79ob7V2Ji07" class="btn btn-primary">
+            Get Enterprise Annual
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container footer-inner">
+      <div>
+        <strong>&copy; 2026 Critical Softworks. All rights reserved.</strong><br>
+        <span>OmAV Security Suite • Precision Engineering for Modern Defense</span>
+      </div>
+      <div class="footer-links">
+        <a href="privacy-policy/">Privacy Policy</a>
+        <a href="terms/">EULA &amp; Terms</a>
+        <a href=".well-known/security.txt">Security Policy (RFC 9116)</a>
+        <a href="https://github.com/critmaths/omav-releases/releases">GitHub Releases</a>
+        <a href="https://github.com/critmaths/omav-releases/issues">Report Issue / False Positive</a>
+        <a href="mailto:critmaths@gmail.com">Contact Support</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function switchPlanMode(mode) {
+      const personalGrid = document.getElementById('grid-personal');
+      const enterpriseGrid = document.getElementById('grid-enterprise');
+      const btnPersonal = document.getElementById('btn-personal');
+      const btnEnterprise = document.getElementById('btn-enterprise');
+
+      if (mode === 'enterprise') {
+        personalGrid.classList.add('hidden');
+        enterpriseGrid.classList.remove('hidden');
+        btnPersonal.classList.remove('active');
+        btnEnterprise.classList.add('active');
+      } else {
+        enterpriseGrid.classList.add('hidden');
+        personalGrid.classList.remove('hidden');
+        btnEnterprise.classList.remove('active');
+        btnPersonal.classList.add('active');
+      }
+    }
+
+    function copyChecksum(btn) {
+      const hash = document.getElementById('sha256-text').textContent.trim();
+      navigator.clipboard.writeText(hash).then(() => {
+        const orig = btn.textContent;
+        btn.textContent = 'Copied!';
+        setTimeout(() => { btn.textContent = orig; }, 1800);
+      });
+    }
+  </script>
+</body>
+</html>
