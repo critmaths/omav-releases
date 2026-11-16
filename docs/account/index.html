@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customer Account &amp; Web Vault — OmAV Security</title>
+  <meta name="description" content="Zero-knowledge encrypted customer portal and web vault for OmAV subscribers and community users.">
+  <link rel="icon" href="../favicon.ico">
+  <style>
+    :root {
+      --bg-base: #070b14;
+      --bg-card: rgba(15, 23, 42, 0.88);
+      --border-subtle: rgba(148, 163, 184, 0.16);
+      --border-accent: rgba(20, 184, 166, 0.5);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --accent-teal: #14b8a6;
+      --accent-cyan: #38bdf8;
+      --accent-emerald: #10b981;
+      --accent-red: #ef4444;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background:
+        radial-gradient(circle at 15% 10%, rgba(20, 184, 166, 0.12), transparent 40%),
+        radial-gradient(circle at 85% 20%, rgba(56, 189, 248, 0.10), transparent 40%),
+        var(--bg-base);
+      color: var(--text-primary);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, sans-serif;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+    a { color: inherit; text-decoration: none; }
+    .container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+    /* Header */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(16px);
+      background: rgba(7, 11, 20, 0.88);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .nav-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 72px;
+      padding: 10px 0;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 1.15rem;
+    }
+    .brand img { width: 36px; height: 36px; border-radius: 9px; }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+    .nav-links a:hover { color: var(--text-primary); }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.88rem;
+      cursor: pointer;
+      border: none;
+      transition: all 0.15s ease;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+    .btn-primary {
+      background: linear-gradient(135deg, #14b8a6 0%, #0284c7 100%);
+      color: #ffffff;
+      box-shadow: 0 4px 18px rgba(20, 184, 166, 0.3);
+    }
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-primary);
+      border: 1px solid var(--border-subtle);
+    }
+    .btn-secondary:hover { border-color: var(--accent-cyan); }
+    .btn-danger {
+      background: rgba(239, 68, 68, 0.18);
+      color: #fca5a5;
+      border: 1px solid rgba(239, 68, 68, 0.4);
+    }
+
+    main { padding: 48px 0 80px; }
+
+    /* Auth Card */
+    .auth-wrap {
+      max-width: 480px;
+      margin: 40px auto 0;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
+      padding: 32px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+    }
+    .auth-toggle {
+      display: flex;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 4px;
+      border-radius: 12px;
+      margin-bottom: 24px;
+      border: 1px solid var(--border-subtle);
+    }
+    .auth-toggle button {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      background: transparent;
+      color: var(--text-secondary);
+      font-weight: 700;
+      font-size: 0.9rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .auth-toggle button.active {
+      background: linear-gradient(135deg, #14b8a6, #0284c7);
+      color: #ffffff;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+    .form-group label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #cbd5e1;
+    }
+    .form-group input {
+      background: #090f1d;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 8px;
+      padding: 12px 14px;
+      color: #f8fafc;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.15s ease;
+    }
+    .form-group input:focus {
+      border-color: var(--accent-cyan);
+    }
+    .alert-box {
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      margin-bottom: 16px;
+      line-height: 1.4;
+      display: none;
+    }
+    .alert-error {
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.35);
+      color: #fca5a5;
+    }
+    .alert-success {
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      color: #6ee7b7;
+    }
+    .zk-notice {
+      margin-top: 20px;
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px dashed rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      font-size: 0.78rem;
+      color: #94a3b8;
+      line-height: 1.4;
+    }
+
+    /* Dashboard Layout */
+    .dashboard-wrap { display: none; }
+    .dash-header {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 18px;
+      padding: 24px 28px;
+      margin-bottom: 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .user-info-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .user-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: rgba(20, 184, 166, 0.15);
+      color: #2dd4bf;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      border: 1px solid rgba(20, 184, 166, 0.3);
+    }
+    .tier-badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 3px 10px;
+      border-radius: 999px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+    .tier-ent {
+      background: rgba(56, 189, 248, 0.16);
+      color: #38bdf8;
+      border: 1px solid rgba(56, 189, 248, 0.35);
+    }
+    .tier-pro {
+      background: rgba(20, 184, 166, 0.16);
+      color: #2dd4bf;
+      border: 1px solid rgba(20, 184, 166, 0.35);
+    }
+    .tier-free {
+      background: rgba(148, 163, 184, 0.14);
+      color: #94a3b8;
+      border: 1px solid rgba(148, 163, 184, 0.3);
+    }
+
+    .dash-tabs {
+      display: flex;
+      gap: 12px;
+      border-bottom: 1px solid var(--border-subtle);
+      margin-bottom: 24px;
+    }
+    .dash-tab-btn {
+      padding: 10px 18px;
+      border: none;
+      background: transparent;
+      color: var(--text-secondary);
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      position: relative;
+      transition: color 0.2s ease;
+    }
+    .dash-tab-btn.active {
+      color: #ffffff;
+    }
+    .dash-tab-btn.active::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #14b8a6, #0284c7);
+      border-radius: 2px;
+    }
+
+    /* Vault Viewer Items */
+    .vault-toolbar {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .search-input {
+      flex: 1;
+      min-width: 240px;
+      background: #090f1d;
+      border: 1px solid var(--border-subtle);
+      border-radius: 999px;
+      padding: 10px 18px;
+      color: #fff;
+      font-size: 0.9rem;
+      outline: none;
+    }
+    .search-input:focus { border-color: var(--accent-cyan); }
+
+    .items-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      gap: 16px;
+    }
+    .vault-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .vault-card:hover {
+      border-color: rgba(56, 189, 248, 0.4);
+    }
+    .vault-card-title {
+      font-weight: 700;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .vault-field {
+      background: #090f1d;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 6px;
+      padding: 6px 10px;
+      font-size: 0.82rem;
+      font-family: monospace;
+      color: #cbd5e1;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .copy-chip {
+      background: rgba(255, 255, 255, 0.08);
+      border: none;
+      color: #94a3b8;
+      padding: 2px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.75rem;
+    }
+    .copy-chip:hover { color: #fff; background: rgba(56, 189, 248, 0.2); }
+
+    /* Security Tab */
+    .sec-card {
+      max-width: 540px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 28px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <header>
+    <div class="container nav-bar">
+      <a href="../" class="brand">
+        <img src="../assets/logo.png" alt="OmAV Shield Logo">
+        <span>OmAV Security</span>
+      </a>
+      <nav class="nav-links">
+        <a href="../#defense-matrix">Active Defense</a>
+        <a href="../#features">VPN &amp; Vault</a>
+        <a href="../#mission">Mission &amp; Impact</a>
+        <a href="../#pricing">Pricing</a>
+        <a href="../contact/">Contact</a>
+        <a href="https://github.com/critmaths/omav-releases/releases/latest" class="btn btn-primary" style="padding: 7px 16px; font-size: 0.82rem;">
+          ⬇ Download App
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- 1. SIGN IN / REGISTER FORM -->
+    <div id="auth-section" class="auth-wrap">
+      <div class="auth-toggle">
+        <button id="tab-login" class="active" onclick="switchAuthMode('login')">Sign In</button>
+        <button id="tab-register" onclick="switchAuthMode('register')">Create Account</button>
+      </div>
+
+      <div id="auth-alert" class="alert-box"></div>
+
+      <form id="auth-form" onsubmit="handleAuthSubmit(event)">
+        <div class="form-group">
+          <label for="auth-email">Account Email</label>
+          <input type="email" id="auth-email" required placeholder="you@example.com" autocomplete="email">
+        </div>
+
+        <div class="form-group">
+          <label for="auth-password">Master Password</label>
+          <input type="password" id="auth-password" required placeholder="••••••••••••" autocomplete="current-password">
+        </div>
+
+        <div id="confirm-pwd-group" class="form-group" style="display:none;">
+          <label for="auth-password-confirm">Confirm Master Password</label>
+          <input type="password" id="auth-password-confirm" placeholder="••••••••••••" autocomplete="new-password">
+        </div>
+
+        <button type="submit" id="btn-auth-submit" class="btn btn-primary" style="width:100%; margin-top:8px;">
+          Sign In to OmAV
+        </button>
+      </form>
+
+      <div class="zk-notice">
+        🔒 <strong>Zero-Knowledge Web Crypto:</strong> Your master password is never transmitted across the network. All encryption keys are mathematically derived right here in your browser using PBKDF2 (100,000 iterations) and AES-256-GCM.
+      </div>
+    </div>
+
+    <!-- 2. DASHBOARD VIEW (WHEN AUTHENTICATED) -->
+    <div id="dashboard-section" class="dashboard-wrap">
+      <!-- Profile & Subscription Banner -->
+      <div class="dash-header">
+        <div class="user-info-row">
+          <div class="user-avatar">👤</div>
+          <div>
+            <div id="dash-email" style="font-size:1.15rem; font-weight:800;">user@example.com</div>
+            <div id="dash-tier" class="tier-badge tier-ent">Enterprise (35 Seats)</div>
+          </div>
+        </div>
+
+        <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+          <span id="dash-status-pill" style="font-size:0.85rem; color:#10b981; font-weight:700;">● Subscription Active</span>
+          <a href="https://billing.stripe.com/p/login/test" id="btn-stripe-portal" target="_blank" class="btn btn-secondary" style="font-size:0.8rem; padding:8px 14px;">
+            Manage on Stripe
+          </a>
+          <button onclick="handleLogout()" class="btn btn-danger" style="font-size:0.8rem; padding:8px 14px;">
+            Sign Out
+          </button>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <div class="dash-tabs">
+        <button id="tab-btn-vault" class="dash-tab-btn active" onclick="switchDashTab('vault')">
+          🔑 Password Vault (<span id="vault-count">0</span>)
+        </button>
+        <button id="tab-btn-sec" class="dash-tab-btn" onclick="switchDashTab('sec')">
+          🛡️ Master Password &amp; Security
+        </button>
+      </div>
+
+      <!-- Tab A: Vault Items -->
+      <div id="tab-view-vault">
+        <div class="vault-toolbar">
+          <input type="text" id="vault-search" class="search-input" placeholder="🔍 Search logins, cards, identities..." oninput="filterVaultItems()">
+          <button onclick="handleCloudSync()" id="btn-web-sync" class="btn btn-secondary">
+            🔄 Refresh Sync
+          </button>
+        </div>
+
+        <div id="vault-items-container" class="items-grid">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+
+      <!-- Tab B: Security & Change Password -->
+      <div id="tab-view-sec" style="display:none;">
+        <div class="sec-card">
+          <h3 style="font-size:1.15rem; font-weight:800; margin-bottom:12px; color:#f8fafc;">
+            Change Master Password
+          </h3>
+          <p style="font-size:0.85rem; color:#94a3b8; margin-bottom:18px;">
+            Re-encrypt your entire password vault with a new master key. Because of zero-knowledge architecture, all items will be decrypted locally and re-encrypted with your new key before updating the cloud.
+          </p>
+
+          <div id="sec-alert" class="alert-box"></div>
+
+          <form onsubmit="handleChangePassword(event)">
+            <div class="form-group">
+              <label for="old-master-pwd">Current Master Password</label>
+              <input type="password" id="old-master-pwd" required placeholder="••••••••••••">
+            </div>
+
+            <div class="form-group">
+              <label for="new-master-pwd">New Master Password</label>
+              <input type="password" id="new-master-pwd" required placeholder="Minimum 8 characters">
+            </div>
+
+            <div class="form-group">
+              <label for="confirm-new-pwd">Confirm New Master Password</label>
+              <input type="password" id="confirm-new-pwd" required placeholder="Repeat new password">
+            </div>
+
+            <button type="submit" id="btn-update-pwd" class="btn btn-primary" style="margin-top:8px;">
+              Re-Encrypt &amp; Update Password
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const API_BASE = 'https://creations-stories-scheduling-conversion.trycloudflare.com';
+
+    let currentAuthMode = 'login';
+    let activeToken = localStorage.getItem('omav_web_token') || '';
+    let activeEmail = localStorage.getItem('omav_web_email') || '';
+    let currentMasterKeyHex = sessionStorage.getItem('omav_web_key') || '';
+    let currentAesKey = null;
+    let cachedEntries = [];
+    let currentVaultVersion = 1;
+
+    // --- Cryptographic Web Crypto Helpers ---
+    function hexToBuf(hex) {
+      if (!hex) return new Uint8Array(0);
+      const bytes = new Uint8Array(hex.length / 2);
+      for (let i = 0; i < bytes.length; i++) {
+        bytes[i] = parseInt(hex.substr(i * 2, 2), 16);
+      }
+      return bytes;
+    }
+
+    function bufToHex(buffer) {
+      return Array.from(new Uint8Array(buffer))
+        .map(b => b.toString(16).padStart(2, '0'))
+        .join('');
+    }
+
+    async function deriveMasterKeys(password, saltHex, iterations = 100000) {
+      const enc = new TextEncoder();
+      const baseKey = await crypto.subtle.importKey(
+        'raw',
+        enc.encode(password),
+        'PBKDF2',
+        false,
+        ['deriveBits']
+      );
+
+      const masterBits = await crypto.subtle.deriveBits(
+        {
+          name: 'PBKDF2',
+          salt: hexToBuf(saltHex),
+          iterations: iterations,
+          hash: 'SHA-256'
+        },
+        baseKey,
+        256
+      );
+
+      const masterKeyHex = bufToHex(masterBits);
+
+      const authDigest = await crypto.subtle.digest(
+        'SHA-256',
+        enc.encode('auth:' + masterKeyHex)
+      );
+      const authHash = bufToHex(authDigest);
+
+      const aesKey = await crypto.subtle.importKey(
+        'raw',
+        masterBits,
+        { name: 'AES-GCM' },
+        false,
+        ['encrypt', 'decrypt']
+      );
+
+      return { masterKeyHex, authHash, aesKey };
+    }
+
+    async function encryptVaultBlob(plainObj, aesKey) {
+      const enc = new TextEncoder();
+      const iv = crypto.getRandomValues(new Uint8Array(12));
+      const cipherBuffer = await crypto.subtle.encrypt(
+        { name: 'AES-GCM', iv: iv },
+        aesKey,
+        enc.encode(JSON.stringify(plainObj))
+      );
+
+      return JSON.stringify({
+        iv: bufToHex(iv),
+        ciphertext: bufToHex(cipherBuffer)
+      });
+    }
+
+    async function decryptVaultBlob(cipherJsonStr, aesKey) {
+      const dec = new TextDecoder();
+      const payload = typeof cipherJsonStr === 'string' ? JSON.parse(cipherJsonStr) : cipherJsonStr;
+      const plainBuffer = await crypto.subtle.decrypt(
+        { name: 'AES-GCM', iv: hexToBuf(payload.iv) },
+        aesKey,
+        hexToBuf(payload.ciphertext)
+      );
+      return JSON.parse(dec.decode(plainBuffer));
+    }
+
+    // --- UI Switchers ---
+    function switchAuthMode(mode) {
+      currentAuthMode = mode;
+      document.getElementById('tab-login').classList.toggle('active', mode === 'login');
+      document.getElementById('tab-register').classList.toggle('active', mode === 'register');
+      document.getElementById('confirm-pwd-group').style.display = mode === 'register' ? 'flex' : 'none';
+      document.getElementById('btn-auth-submit').textContent = mode === 'register' ? 'Create Account & Sync' : 'Sign In to OmAV';
+      hideAlert('auth-alert');
+    }
+
+    function switchDashTab(tab) {
+      document.getElementById('tab-btn-vault').classList.toggle('active', tab === 'vault');
+      document.getElementById('tab-btn-sec').classList.toggle('active', tab === 'sec');
+      document.getElementById('tab-view-vault').style.display = tab === 'vault' ? 'block' : 'none';
+      document.getElementById('tab-view-sec').style.display = tab === 'sec' ? 'block' : 'none';
+    }
+
+    function showAlert(id, msg, type = 'error') {
+      const el = document.getElementById(id);
+      el.className = `alert-box alert-${type}`;
+      el.textContent = msg;
+      el.style.display = 'block';
+    }
+
+    function hideAlert(id) {
+      document.getElementById(id).style.display = 'none';
+    }
+
+    // --- Authentication Submit ---
+    async function handleAuthSubmit(e) {
+      e.preventDefault();
+      hideAlert('auth-alert');
+
+      const email = document.getElementById('auth-email').value.trim().toLowerCase();
+      const password = document.getElementById('auth-password').value;
+      const confirmPwd = document.getElementById('auth-password-confirm').value;
+      const submitBtn = document.getElementById('btn-auth-submit');
+
+      if (currentAuthMode === 'register' && password !== confirmPwd) {
+        showAlert('auth-alert', 'Passwords do not match.');
+        return;
+      }
+      if (password.length < 8) {
+        showAlert('auth-alert', 'Master password must be at least 8 characters.');
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Processing...';
+
+      try {
+        // 1. Prelogin
+        const preRes = await fetch(`${API_BASE}/api/v1/vault/prelogin`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email })
+        });
+        const preData = await preRes.json();
+        if (!preRes.ok || preData.status !== 'ok') {
+          throw new Error(preData.message || 'Prelogin failed');
+        }
+
+        if (currentAuthMode === 'login' && !preData.found) {
+          throw new Error('Account not found. Please click "Create Account".');
+        }
+        if (currentAuthMode === 'register' && preData.found) {
+          throw new Error('An account already exists for this email. Please Sign In.');
+        }
+
+        // 2. Derive Keys
+        const { masterKeyHex, authHash, aesKey } = await deriveMasterKeys(
+          password,
+          preData.salt,
+          preData.kdf_iterations || 100000
+        );
+
+        if (currentAuthMode === 'register') {
+          // Initialize with empty vault or sample entries
+          const initialVault = [];
+          const encryptedBlob = await encryptVaultBlob(initialVault, aesKey);
+
+          const regRes = await fetch(`${API_BASE}/api/v1/vault/register`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              email,
+              salt: preData.salt,
+              auth_hash: authHash,
+              encrypted_blob: encryptedBlob,
+              kdf_iterations: preData.kdf_iterations || 100000,
+              device_name: 'Web Vault Portal'
+            })
+          });
+          const regData = await regRes.json();
+          if (!regRes.ok || regData.status !== 'ok') throw new Error(regData.message || 'Registration failed');
+
+          saveSession(regData.token, email, masterKeyHex, aesKey);
+          loadDashboard(regData);
+        } else {
+          // Sign In
+          const loginRes = await fetch(`${API_BASE}/api/v1/vault/login`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              email,
+              auth_hash: authHash,
+              device_name: 'Web Vault Portal'
+            })
+          });
+          const loginData = await loginRes.json();
+          if (!loginRes.ok || loginData.status !== 'ok') throw new Error(loginData.message || 'Incorrect master password.');
+
+          saveSession(loginData.token, email, masterKeyHex, aesKey);
+          currentVaultVersion = loginData.version || 1;
+
+          if (loginData.encrypted_blob) {
+            try {
+              cachedEntries = await decryptVaultBlob(loginData.encrypted_blob, aesKey);
+            } catch (_) {
+              cachedEntries = [];
+            }
+          }
+          loadDashboard(loginData);
+        }
+      } catch (err) {
+        showAlert('auth-alert', err.message || 'Authentication error.');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = currentAuthMode === 'register' ? 'Create Account & Sync' : 'Sign In to OmAV';
+      }
+    }
+
+    function saveSession(token, email, keyHex, aesKey) {
+      activeToken = token;
+      activeEmail = email;
+      currentMasterKeyHex = keyHex;
+      currentAesKey = aesKey;
+      localStorage.setItem('omav_web_token', token);
+      localStorage.setItem('omav_web_email', email);
+      sessionStorage.setItem('omav_web_key', keyHex);
+    }
+
+    function handleLogout() {
+      if (activeToken) {
+        fetch(`${API_BASE}/api/v1/vault/logout`, {
+          method: 'POST',
+          headers: { 'Authorization': `Bearer ${activeToken}` }
+        }).catch(() => {});
+      }
+      localStorage.removeItem('omav_web_token');
+      localStorage.removeItem('omav_web_email');
+      sessionStorage.removeItem('omav_web_key');
+      activeToken = '';
+      activeEmail = '';
+      currentMasterKeyHex = '';
+      currentAesKey = null;
+      cachedEntries = [];
+
+      document.getElementById('dashboard-section').style.display = 'none';
+      document.getElementById('auth-section').style.display = 'block';
+    }
+
+    function loadDashboard(data) {
+      document.getElementById('auth-section').style.display = 'none';
+      document.getElementById('dashboard-section').style.display = 'block';
+
+      document.getElementById('dash-email').textContent = activeEmail;
+
+      const sub = data.user?.subscription || {};
+      const tierBadge = document.getElementById('dash-tier');
+      const statusPill = document.getElementById('dash-status-pill');
+
+      let tierLabel = 'Community Free';
+      let tierClass = 'tier-free';
+
+      if (sub.tier === 'ENT') {
+        tierLabel = sub.max_seats > 1 ? `Enterprise (${sub.max_seats} Seats)` : 'Enterprise';
+        tierClass = 'tier-ent';
+      } else if (sub.tier === 'PRO') {
+        tierLabel = 'Pro Protection';
+        tierClass = 'tier-pro';
+      }
+
+      tierBadge.textContent = tierLabel;
+      tierBadge.className = `tier-badge ${tierClass}`;
+
+      statusPill.textContent = sub.is_active ? '● Subscription Active' : '○ Free / Inactive';
+      statusPill.style.color = sub.is_active ? '#10b981' : '#94a3b8';
+
+      renderVaultItems();
+    }
+
+    // --- Vault Rendering ---
+    function renderVaultItems(filter = '') {
+      const container = document.getElementById('vault-items-container');
+      const countEl = document.getElementById('vault-count');
+      const query = filter.toLowerCase().trim();
+
+      const filtered = cachedEntries.filter(e => {
+        if (!query) return true;
+        const str = `${e.title || ''} ${e.username || ''} ${e.website_url || ''} ${e.cardholder_name || ''}`.toLowerCase();
+        return str.includes(query);
+      });
+
+      countEl.textContent = cachedEntries.length;
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div style="grid-column:1/-1; text-align:center; padding:40px; color:#94a3b8;">
+            No vault items found. Use the OmAV desktop app or browser extension to save logins and sync them here.
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filtered.map(item => {
+        const title = escapeHtml(item.title || 'Untitled');
+        const user = escapeHtml(item.username || item.cardholder_name || '');
+        const pass = item.password || item.card_number || '';
+        const isLogin = item.entry_type === 'login' || !item.entry_type;
+
+        return `
+          <div class="vault-card">
+            <div>
+              <div class="vault-card-title">
+                ${isLogin ? '🔑' : '💳'} ${title}
+              </div>
+              <div style="font-size:0.8rem; color:#94a3b8; margin-top:2px;">${user}</div>
+            </div>
+
+            <div style="display:flex; flex-direction:column; gap:6px;">
+              ${user ? `
+                <div class="vault-field">
+                  <span>${user}</span>
+                  <button class="copy-chip" onclick="copyValue('${escapeAttr(user)}')">Copy</button>
+                </div>
+              ` : ''}
+
+              ${pass ? `
+                <div class="vault-field">
+                  <span id="pwd-${escapeAttr(item.id)}">••••••••••••</span>
+                  <div style="display:flex; gap:4px;">
+                    <button class="copy-chip" onclick="toggleReveal('${escapeAttr(item.id)}', '${escapeAttr(pass)}')">👁️</button>
+                    <button class="copy-chip" onclick="copyValue('${escapeAttr(pass)}')">Copy</button>
+                  </div>
+                </div>
+              ` : ''}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function filterVaultItems() {
+      const q = document.getElementById('vault-search').value;
+      renderVaultItems(q);
+    }
+
+    function toggleReveal(id, rawVal) {
+      const el = document.getElementById(`pwd-${id}`);
+      if (!el) return;
+      if (el.textContent === '••••••••••••') {
+        el.textContent = rawVal;
+      } else {
+        el.textContent = '••••••••••••';
+      }
+    }
+
+    function copyValue(val) {
+      navigator.clipboard.writeText(val).then(() => {
+        // Feedback
+      });
+    }
+
+    async function handleCloudSync() {
+      const btn = document.getElementById('btn-web-sync');
+      btn.disabled = true;
+      btn.textContent = 'Syncing...';
+
+      try {
+        const res = await fetch(`${API_BASE}/api/v1/vault/sync`, {
+          headers: { 'Authorization': `Bearer ${activeToken}` }
+        });
+        const data = await res.json();
+        if (data.status === 'ok' && data.encrypted_blob && currentAesKey) {
+          cachedEntries = await decryptVaultBlob(data.encrypted_blob, currentAesKey);
+          currentVaultVersion = data.version || 1;
+          renderVaultItems();
+        }
+      } catch (err) {
+        console.warn('Sync failed:', err);
+      } finally {
+        btn.disabled = false;
+        btn.textContent = '🔄 Refresh Sync';
+      }
+    }
+
+    // --- Master Password Change ---
+    async function handleChangePassword(e) {
+      e.preventDefault();
+      hideAlert('sec-alert');
+
+      const oldPwd = document.getElementById('old-master-pwd').value;
+      const newPwd = document.getElementById('new-master-pwd').value;
+      const confirmPwd = document.getElementById('confirm-new-pwd').value;
+      const btn = document.getElementById('btn-update-pwd');
+
+      if (newPwd !== confirmPwd) {
+        showAlert('sec-alert', 'New master passwords do not match.');
+        return;
+      }
+      if (newPwd.length < 8) {
+        showAlert('sec-alert', 'New master password must be at least 8 characters.');
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = 'Re-encrypting Vault...';
+
+      try {
+        // 1. Fetch current prelogin salt
+        const preRes = await fetch(`${API_BASE}/api/v1/vault/prelogin`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: activeEmail })
+        });
+        const preData = await preRes.json();
+
+        // 2. Validate old master password by deriving old keys
+        const oldKeys = await deriveMasterKeys(oldPwd, preData.salt, preData.kdf_iterations || 100000);
+        if (oldKeys.masterKeyHex !== currentMasterKeyHex) {
+          throw new Error('Current master password does not match.');
+        }
+
+        // 3. Derive new master keys
+        const newKeys = await deriveMasterKeys(newPwd, preData.salt, preData.kdf_iterations || 100000);
+
+        // 4. Re-encrypt cachedEntries with new AES key
+        const newEncryptedBlob = await encryptVaultBlob(cachedEntries, newKeys.aesKey);
+
+        // 5. Update backend
+        const changeRes = await fetch(`${API_BASE}/api/v1/vault/change-password`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${activeToken}`
+          },
+          body: JSON.stringify({
+            new_auth_hash: newKeys.authHash,
+            encrypted_blob: newEncryptedBlob,
+            kdf_iterations: 100000
+          })
+        });
+        const changeData = await changeRes.json();
+        if (!changeRes.ok || changeData.status !== 'ok') {
+          throw new Error(changeData.message || 'Failed to update master password on server.');
+        }
+
+        // 6. Update local session state
+        currentMasterKeyHex = newKeys.masterKeyHex;
+        currentAesKey = newKeys.aesKey;
+        sessionStorage.setItem('omav_web_key', newKeys.masterKeyHex);
+
+        document.getElementById('old-master-pwd').value = '';
+        document.getElementById('new-master-pwd').value = '';
+        document.getElementById('confirm-new-pwd').value = '';
+
+        showAlert('sec-alert', 'Master password successfully changed! Your vault has been re-encrypted.', 'success');
+      } catch (err) {
+        showAlert('sec-alert', err.message || 'Error updating password.');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Re-Encrypt & Update Password';
+      }
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    function escapeAttr(str) {
+      if (!str) return '';
+      return String(str).replace(/'/g, "\\'").replace(/"/g, '&quot;');
+    }
+
+    // Auto-restore session if stored
+    window.addEventListener('DOMContentLoaded', async () => {
+      if (activeToken && activeEmail && currentMasterKeyHex) {
+        try {
+          currentAesKey = await crypto.subtle.importKey(
+            'raw',
+            hexToBuf(currentMasterKeyHex),
+            { name: 'AES-GCM' },
+            false,
+            ['encrypt', 'decrypt']
+          );
+
+          const statusRes = await fetch(`${API_BASE}/api/v1/account/status`, {
+            headers: { 'Authorization': `Bearer ${activeToken}` }
+          });
+          const statusData = await statusRes.json();
+          if (statusData.status === 'ok') {
+            loadDashboard({ user: statusData });
+            handleCloudSync();
+            return;
+          }
+        } catch (_) {}
+      }
+    });
+  </script>
+</body>
+</html>
