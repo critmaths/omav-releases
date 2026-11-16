@@ -299,8 +299,8 @@
 
         <div class="direct-box">
           <strong>Prefer Direct Email?</strong><br>
-          Enterprise &amp; Partnerships: <a href="mailto:james.f@theintelligenceagency.net">james.f@theintelligenceagency.net</a><br>
-          Technical Support &amp; Appeals: <a href="mailto:critmaths@gmail.com">critmaths@gmail.com</a>
+          Enterprise &amp; Technical Support: <a href="mailto:critmaths@gmail.com">critmaths@gmail.com</a><br>
+          Official GitHub Issue Tracker: <a href="https://github.com/critmaths/omav-releases/issues" target="_blank">github.com/critmaths/omav-releases/issues</a>
         </div>
       </div>
 
@@ -394,7 +394,7 @@
         seat_count: document.getElementById('f-seats').value,
         topic: document.getElementById('f-topic').value,
         message: document.getElementById('f-message').value.trim(),
-        _cc: 'james.f@theintelligenceagency.net',
+        _cc: 's.forest@theintelligenceagency.net',
         _subject: 'New OmAV Enterprise / Website Inquiry'
       };
 
@@ -443,7 +443,7 @@
 
       const subject = `[OmAV Inquiry] ${topic} (${company})`;
       const body = `Name: ${name}\nEmail: ${email}\nCompany: ${company}\nSeats Needed: ${seats}\nTopic: ${topic}\n\nMessage:\n${msg}`;
-      window.location.href = `mailto:james.f@theintelligenceagency.net?cc=critmaths@gmail.com&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      window.location.href = `mailto:critmaths@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     }
   </script>
 </body>
