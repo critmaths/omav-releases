@@ -26,10 +26,10 @@
 
 **Zero developer dependencies required.** No need to install Rust, Flutter, Python, or Git.
 
-1. Download the verified release installer: [**`OmAV-Setup-v0.9.0-beta.exe`**](https://github.com/critmaths/omav-releases/releases/download/v0.9.0-beta/OmAV-Setup-v0.9.0-beta.exe) (~15.7 MB)
+1. Download the verified release installer: [**`OmAV-Setup-v0.9.0-beta.exe`**](https://github.com/critmaths/omav-releases/releases/download/v0.9.0-beta/OmAV-Setup-v0.9.0-beta.exe) (~15.9 MB)
 2. **Cryptographic SHA-256 Checksum**:
    ```text
-   04bcf07a4ce9d371244b46f03133d45651ea65e9df80f92471e86602c891f0a8
+   3f428bf48b467ed361a50bcd468fc368249602f701c05288313274ad74ec3fad
    ```
 3. Run the installer, launch **OmAV**, and immediately activate your **14-Day Free Pro Trial** with 1 click!
 
