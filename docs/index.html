@@ -346,6 +346,39 @@
       gap: 20px;
       align-items: stretch;
     }
+    .price-card-enterprise-wide {
+      background: linear-gradient(135deg, rgba(20, 184, 166, 0.12) 0%, rgba(2, 132, 199, 0.08) 50%, rgba(15, 23, 42, 0.95) 100%);
+      border: 1px solid rgba(20, 184, 166, 0.45);
+      border-radius: 18px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+    @media (min-width: 1024px) {
+      #grid-personal {
+        grid-template-columns: repeat(4, 1fr);
+      }
+      #grid-enterprise {
+        grid-template-columns: repeat(4, 1fr);
+      }
+      .price-card-enterprise-wide {
+        grid-column: span 3;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 32px;
+      }
+      .price-card-enterprise-wide .content-left {
+        max-width: 580px;
+      }
+      .price-card-enterprise-wide .content-right {
+        flex-shrink: 0;
+        text-align: center;
+      }
+    }
     .price-card {
       background: var(--bg-card);
       border: 1px solid var(--border-subtle);
@@ -817,6 +850,29 @@
             Buy Lifetime License
           </a>
         </div>
+
+        <!-- Enterprise Custom Volume Wide Card (Fills the empty space next to Lifetime) -->
+        <div class="price-card-enterprise-wide">
+          <div class="price-badge" style="background: linear-gradient(135deg, #0d9488, #0284c7);">🏢 COMPANY, SCHOOL OR MSP</div>
+          <div class="content-left">
+            <div class="price-title" style="color: #5eead4; font-size: 1.25rem;">Need More Than 35 Keys for Your Fleet?</div>
+            <p style="font-size: 0.92rem; color: #cbd5e1; line-height: 1.55; margin-bottom: 16px;">
+              We partner directly with businesses of every size and will get your organization whatever you need to get started for <strong>as low of a price as possible</strong>—including custom seat caps, flexible billing, and a free 30-day pilot.
+            </p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 8px 16px; font-size: 0.85rem; color: #94a3b8;">
+              <div>✅ Custom Seat Pools (50 to 1,000+ PCs)</div>
+              <div>✅ Free 30-Day Full Enterprise Pilot</div>
+              <div>✅ Centralized Cloud Seat Tracking</div>
+              <div>✅ MSP &amp; Reseller Co-Management</div>
+            </div>
+          </div>
+          <div class="content-right" style="margin-top: 14px;">
+            <a href="contact/" class="btn btn-primary" style="padding: 14px 28px; font-size: 0.95rem; font-weight: 700; white-space: nowrap; display: inline-flex; align-items: center; gap: 8px;">
+              ✉️ Contact Enterprise Sales &rarr;
+            </a>
+            <div style="font-size: 0.78rem; color: #64748b; margin-top: 6px;">Zero hard sales • Custom quotes in &lt;24h</div>
+          </div>
+        </div>
       </div>
 
       <!-- Enterprise Plans Grid (Up to 35 PCs) -->
@@ -890,21 +946,6 @@
             ✉️ Request Custom Fleet Quote
           </a>
         </div>
-      </div>
-
-      <!-- Enterprise Custom Volume Callout Banner -->
-      <div style="margin-top: 28px; background: linear-gradient(135deg, rgba(20, 184, 166, 0.12) 0%, rgba(2, 132, 199, 0.12) 100%); border: 1px solid rgba(20, 184, 166, 0.4); border-radius: 18px; padding: 24px 28px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px;">
-        <div style="max-width: 760px;">
-          <h3 style="font-size: 1.18rem; font-weight: 800; margin-bottom: 4px; color: #5eead4;">
-            🏢 Need More Than 35 Keys for Your Company, School, or MSP?
-          </h3>
-          <p style="font-size: 0.93rem; color: #cbd5e1;">
-            We partner directly with businesses of every size and will get your organization whatever you need to get started for <strong>as low of a price as possible</strong>—including custom seat caps, flexible billing, and a free 30-day pilot.
-          </p>
-        </div>
-        <a href="contact/" class="btn btn-primary">
-          ✉️ Contact Enterprise Sales &rarr;
-        </a>
       </div>
     </section>
   </main>
