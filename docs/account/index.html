@@ -801,7 +801,15 @@
       if (filtered.length === 0) {
         container.innerHTML = `
           <div style="grid-column:1/-1; text-align:center; padding:40px; color:#94a3b8;">
-            No vault items found. Use the OmAV desktop app or browser extension to save logins and sync them here.
+            <p style="margin-bottom:14px; font-size:0.95rem;">No vault items found. Use the OmAV desktop app or browser extension to save logins and sync them here.</p>
+            <div style="display:flex; justify-content:center; gap:12px; flex-wrap:wrap; margin-bottom:12px;">
+              <a href="https://github.com/critmaths/omav-releases/releases/download/v0.9.0-beta/OmAV-Setup-v0.9.0-beta.exe" class="btn btn-primary" style="display:inline-flex; align-items:center; gap:6px; font-size:0.85rem; padding:8px 18px;">
+                ⬇ Download OmAV Desktop App (Windows)
+              </a>
+            </div>
+            <div style="font-size:0.78rem; color:#64748b; max-width:550px; margin:0 auto; line-height:1.4;">
+              💡 <em>Fresh release note:</em> Because this build was just published, your browser or Windows SmartScreen may ask you to confirm. Click <strong>Keep</strong> ➔ <strong>More Info</strong> ➔ <strong>Run Anyway</strong>.
+            </div>
           </div>
         `;
         return;
