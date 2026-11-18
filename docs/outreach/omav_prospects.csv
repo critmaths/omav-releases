@@ -1,0 +1,31 @@
+Category,Organization,Contact_Name_or_Role,Email_or_Portal,Template_Type,Notes
+Software Directory,MajorGeeks,Tim (Co-Founder & Editor),tim@majorgeeks.com,directory,High-traffic Windows utility & security download portal (manual editor review)
+Software Directory,MajorGeeks,Jim (Co-Founder & Editor),jim@majorgeeks.com,directory,Co-maintainer of MajorGeeks software library
+Software Directory,BetaNews,Editorial & Fileforum Team,info@betanews.com,directory,Covers new Windows software releases and BetaNews Fileforum
+Software Directory,Softpedia,Windows Software Editorial,webmaster@softpedia.com,directory,Global software encyclopedia with 100% clean certification badge
+Software Directory,SnapFiles,Developer Submission Portal,https://www.snapfiles.com/dev/,directory,Manual testing & listing for Windows freeware/shareware
+Software Directory,FossHub,Partner & Listing Team,https://www.fosshub.com/contact,directory,High-speed software mirror and curated security apps
+Software Directory,AlternativeTo,Platform Listing,https://alternativeto.net/,directory,List OmAV as a lightweight Rust alternative to Malwarebytes & Bitdefender
+Security Media,gHacks Technology News,Arno & Editorial Team,arno@ghacks.net,reviewer,Prominent Windows security and privacy review publication
+Security Media,The PC Security Channel,Andrew Tierney (TPSC),https://www.thepcsecuritychannel.com,reviewer,Leading YouTube antivirus & ransomware testing lab
+Security Media,BleepingComputer,Editorial & Software Tips,https://www.bleepingcomputer.com/contact/,reviewer,Premier cybersecurity & ransomware news outlet
+Security Media,Neowin,Windows News & Review Desk,https://www.neowin.net/contact/,reviewer,Long-standing Microsoft & Windows enthusiast publication
+Security Media,TechSpot,Downloads & Review Editors,https://www.techspot.com/contact/,reviewer,Curated Windows security & utility download hub
+MSP & IT Partner,Systech MSP,Channel & Fleet Team,info@systechmsp.com,msp,Cybersecurity-first MSP serving SMB Windows fleets (10-50 seats)
+MSP & IT Partner,WCA Technologies,Managed IT Partnerships,info@wcatech.com,msp,Established SMB IT support provider for legal & financial offices
+MSP & IT Partner,DAG Tech,Vendor & IT Solutions,info@dagtech.com,msp,Managed Windows & cloud support for small-to-midsize businesses
+MSP & IT Partner,NetCom Online,Managed IT Desk,info@netcomonline.com,msp,Outsourced Windows helpdesk and endpoint management
+MSP & IT Partner,Managed Solution,Partner & Solutions Desk,info@managedsolution.com,msp,Managed endpoint & security services provider
+MSP & IT Partner,IT Partners,Co-Managed IT Team,info@itpartners.com,msp,Co-managed IT & endpoint security for growing SMBs
+MSP & IT Partner,Sandler Partners,Technology Partner Ecosystem,info@sandlerpartners.com,msp,Distributor connecting security solutions to regional MSPs
+MSP & IT Partner,Cloudtango MSP Directory,MSP Directory Listing,info@cloudtango.net,msp,Global directory of Managed Service Providers
+Humanitarian & B-Corp,Community IT Innovators,Employee-Owned B-Corp IT Team,connect@communityit.com,humanitarian,100% Employee-Owned B-Corp & #1 Managed IT Provider for Nonprofits and Humanitarian NGOs
+Humanitarian & B-Corp,RoundTable Technology,Nonprofit Cybersecurity & Outreach,outreach@roundtabletechnology.com,humanitarian,Dedicated Managed IT & Cybersecurity partner exclusively serving charities and nonprofits
+Humanitarian & B-Corp,Tech Impact,501(c)(3) Nonprofit Tech Team,marketing@techimpact.org,humanitarian,Nonprofit delivering Managed IT and security to hundreds of humanitarian & community orgs
+Humanitarian & B-Corp,BetterWorld Technology,Founding B-Corp IT Solutions,info@betterworldtechnology.com,humanitarian,Founding Certified B-Corp Managed IT, climate-positive & ethical cybersecurity provider
+Humanitarian & B-Corp,NTEN (Nonprofit Tech Network),Nonprofit Technology Community,info@nten.org,humanitarian,Global network of nonprofit IT directors and humanitarian technology leaders
+Humanitarian & B-Corp,Green America,Green Business Network Desk,info@greenamerica.org,humanitarian,National network of environmentally & socially responsible small-to-midsize businesses
+Humanitarian & B-Corp,Message Agency,Certified B-Corp Tech Agency,info@messageagency.org,humanitarian,Certified B-Corp technology consultancy serving nonprofits, foundations & social enterprises
+Humanitarian & B-Corp,.org/advisors,Mission-Driven Strategy Team,info@dotorgadvisors.com,humanitarian,Certified B-Corp consulting for humanitarian, environmental & ethical organizations
+Humanitarian & B-Corp,Restless Stories,Certified B-Corp Digital Team,info@restlessstories.com,humanitarian,Certified B-Corp ethical agency helping companies achieve social & environmental impact
+Humanitarian & B-Corp,World Network Systems,Nonprofit & Donor Data Security,info@worldnetworksystems.com,humanitarian,Specializes in flat-rate nonprofit Windows IT support and donor data protection
