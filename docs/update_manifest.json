@@ -3,10 +3,10 @@
     "version":  "0.9.0",
     "name":  "OmAV Community Beta v0.9.0",
     "prerelease":  true,
-    "published_at":  "2026-11-18T20:36:29Z",
+    "published_at":  "2026-11-18T20:40:33Z",
     "file_name":  "OmAV-Setup-v0.9.0-beta.exe",
-    "file_size_bytes":  16436264,
-    "sha256":  "4baf0c904aeb956bbb3b54e952177637184543a009a649eca967cce284197e2e",
+    "file_size_bytes":  16434947,
+    "sha256":  "8a9eb531d6ad8e1e7bd434693f88b14307ab4b8bc115d9b7195e153951b8075d",
     "installer_url":  "https://github.com/critmaths/omav-releases/releases/download/v0.9.0-beta/OmAV-Setup-v0.9.0-beta.exe",
-    "body":  "• 6-Layer Elite Active Defense Matrix (WinVerifyTrust, YARA, Ransomware Canaries, LOLBin \u0026 AMSI Sentinel, Abuse.ch Threat Feed)\n• 32-City Multi-Peer WireGuard VPN Server Directory\n• Cryptographic SHA-256 Auto-Update Verification\n\nSHA-256: 4baf0c904aeb956bbb3b54e952177637184543a009a649eca967cce284197e2e"
+    "body":  "• 6-Layer Elite Active Defense Matrix (WinVerifyTrust, YARA, Ransomware Canaries, LOLBin \u0026 AMSI Sentinel, Abuse.ch Threat Feed)\n• 32-City Multi-Peer WireGuard VPN Server Directory\n• Cryptographic SHA-256 Auto-Update Verification\n\nSHA-256: 8a9eb531d6ad8e1e7bd434693f88b14307ab4b8bc115d9b7195e153951b8075d"
 }
