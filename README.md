@@ -29,7 +29,7 @@
 1. Download the verified release installer: [**`OmAV-Setup-v0.9.0-beta.exe`**](https://github.com/critmaths/omav-releases/releases/download/v0.9.0-beta/OmAV-Setup-v0.9.0-beta.exe) (~15.9 MB)
 2. **Cryptographic SHA-256 Checksum**:
    ```text
-   3f428bf48b467ed361a50bcd468fc368249602f701c05288313274ad74ec3fad
+   8a9eb531d6ad8e1e7bd434693f88b14307ab4b8bc115d9b7195e153951b8075d
    ```
 3. Run the installer, launch **OmAV**, and immediately activate your **14-Day Free Pro Trial** with 1 click!
 
